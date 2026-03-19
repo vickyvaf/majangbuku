@@ -5,7 +5,7 @@
 
 ## 2. Goals
 - **Brand Identity**: Establish a professional yet cozy digital presence for Majang Buku.
-- **Showcase Activities**: Highlight key community activities like *Piknik Buku*, *Klub Lima Pagi*, and *Diam-Diam Baca*.
+- **Showcase Activities**: Highlight key community activities like *Book Picnic*, *5 AM Club*, and *Silent Reading*.
 - **Information Hub**: Provide clear information about the community's history (Biography), upcoming events, and common questions (FAQ).
 - **Engagement**: Use high-end, interactive design elements to "wow" visitors.
 
@@ -20,7 +20,7 @@
 - **Carousel Design**: 
   - Vertical strips (strips horizontally aligned).
   - **Interaction**: On hover, a strip expands (flex-grow) and plays a short video of the activity it represents.
-  - **Proposed Strips**: *Piknik Buku*, *Klub Lima Pagi*, *Diam-Diam Baca*, *LCW (Literasi Camp & Workshop)*.
+  - **Proposed Strips**: *Book Picnic*, *5 AM Club*, *Silent Reading*, *LCW (Literacy Camp & Workshop)*.
 - **Call to Action**: Links to join the community or view events.
 
 ### 4.2 Biography

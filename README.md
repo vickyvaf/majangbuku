@@ -1,93 +1,89 @@
 # Majang Buku - Payload CMS
 
-Proyek ini adalah sistem manajemen konten (CMS) berbasis Payload CMS yang menggunakan PostgreSQL sebagai database-nya.
+This project is a content management system (CMS) based on Payload CMS, using PostgreSQL as its database.
 
-## Persyaratan
+## Requirements
 - [pnpm v9](https://pnpm.io/) (via Corepack)
 - [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
 
 ---
 
-## 🛠️ Persiapan (Corepack)
-Proyek ini menggunakan Corepack untuk mementukan versi pnpm yang konsisten (v9.15.9). Pastikan Corepack sudah aktif:
+## 🛠️ Setup (Corepack)
+This project uses Corepack to define a consistent version of pnpm (v9.15.9). Make sure Corepack is active:
 ```bash
 corepack enable
 ```
-Setelah itu, perintah `pnpm` akan secara otomatis menggunakan versi yang ditentukan di `package.json`.
+After that, the `pnpm` command will automatically use the version specified in `package.json`.
 
 ---
 
-## 🚀 Memulai Cepat (Docker Compose) - **Direkomendasikan**
+## 🚀 Quick Start (Docker Compose) - **Recommended**
 
-Cara termudah untuk menjalankan proyek ini beserta databasenya adalah menggunakan Docker:
+The easiest way to run this project along with its database is via Docker:
 
-1.  **Salin file environment:**
-    ```bash
-    cp .env.example .env
-    ```
-2.  **Konfigurasi `.env` untuk Docker:**
-    Pastikan `DATABASE_URL` di file `.env` mengarah ke layanan database internal Docker:
+1.  **Configure `.env` for Docker:**
+    Make sure `DATABASE_URL` in the `.env` file points to the Docker internal database service:
     ```env
-    DATABASE_URL=postgresql://postgres:password@postgres:5432/majangbuku
-    PAYLOAD_SECRET=ganti-dengan-secret-anda
+    DATABASE_URL=replace-with-your-database-url
+    PAYLOAD_SECRET=replace-with-your-secret
     ```
-3.  **Jalankan Docker Compose:**
+2.  **Run Docker Compose:**
     ```bash
     docker compose up -d --build
     ```
-4.  **Akses Aplikasi:**
+3.  **Access Application:**
     - **Website:** [http://localhost:3000](http://localhost:3000)
     - **Admin Panel:** [http://localhost:3000/admin](http://localhost:3000/admin)
 
 ---
 
-## 🛠️ Pengembangan Lokal (Tanpa Docker)
+## 🛠️ Local Development (Without Docker)
 
-Jika Anda ingin menjalankan aplikasi secara langsung di mesin lokal Anda (memerlukan PostgreSQL lokal):
+If you wish to run the application directly on your local machine (requires local PostgreSQL):
 
-1.  **Instal Dependensi:**
+1.  **Install Dependencies:**
     ```bash
     pnpm install
     ```
-2.  **Konfigurasi `.env`:**
-    Ubah `DATABASE_URL` ke database PostgreSQL lokal Anda:
+2.  **Configure `.env`:**
+    Change `DATABASE_URL` to your local PostgreSQL database:
     ```env
-    DATABASE_URL=postgresql://user:password@localhost:5432/majangbuku
+    DATABASE_URL=replace-with-your-database-url
     ```
-3.  **Jalankan Server Pengembangan:**
+3.  **Run Development Server:**
     ```bash
     pnpm dev
     ```
 
 ---
 
-## 📝 Perintah Berguna
+## 📝 Useful Commands
 
-- **Mematikan Docker:**
+- **Stop Docker:**
   ```bash
   docker compose down
   ```
-- **Melihat Log (Docker):**
+- **View Logs (Docker):**
   ```bash
   docker compose logs -f payload
   ```
-- **Generate Tipe (TypeScript):**
+- **Generate Types (TypeScript):**
   ```bash
   pnpm generate:types
   ```
-- **Build Proyek:**
+- **Build Project:**
   ```bash
   pnpm build
   ```
 
 ---
 
-## 🏗️ Struktur Proyek
+## 🏗️ Project Structure
 
-- `src/collections/`: Konfigurasi untuk koleksi data (Users, Media, Events, dll).
-- `src/globals/`: Konfigurasi untuk data global (Biography, Settings, dll).
-- `src/app/`: Folder aplikasi Next.js (berisi route frontend dan admin).
-- `public/`: File statis seperti gambar, logo, dan favicon.
+- `src/collections/`: Configuration for data collections (Users, Media, Events, etc).
+- `src/globals/`: Configuration for global data (Biography, Settings, etc).
+- `src/app/`: Next.js application folder (contains frontend and admin routes).
+- `public/`: Static files such as images, logos, and favicons.
 
-## ⚖️ Lisensi
-Proyek ini bersifat pribadi. Segala penggunaan harus seizin pemilik.
+## ⚖️ License
+This project is private. Any use must have the permission of the owner.
