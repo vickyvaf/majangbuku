@@ -1,0 +1,23 @@
+node_modules
+.next
+.git
+.github
+.DS_Store
+*.local
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+.env
+.env*.local
+.cursor
+AGENTS.md
+PRD.md
+Dockerfile
+docker-compose.yml
+pnpm-lock.yaml*
+# Skip lock files if you want to avoid issues with different platforms
+# but usually for pnpm it's fine.
+# We explicitly copy them in the Dockerfile so it's okay to ignore them here
+# if we are doing COPY . . later.
+# Actually, better keep them for deterministic builds.

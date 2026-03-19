@@ -1,13 +1,13 @@
 services:
   payload:
-    image: oven/bun:1-alpine
+    image: node:20-alpine
     ports:
       - '3000:3000'
     volumes:
-      - .:/home/bun/app
-      - node_modules:/home/bun/app/node_modules
-    working_dir: /home/bun/app/
-    command: sh -c "bun install && bun run dev"
+      - .:/app
+      - node_modules:/app/node_modules
+    working_dir: /app
+    command: sh -c "corepack enable && pnpm install && pnpm run dev"
     depends_on:
       - postgres
     env_file:
