@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Megaphone, X, MapPin } from 'lucide-react'
+import { Megaphone, X, MapPin, Calendar } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import './EventsSidebar.css'
@@ -105,6 +105,11 @@ export const EventsSidebar: React.FC<EventsSidebarProps> = ({ events, socialLink
                     </p>
                   )}
                   <p className="event-card-date" suppressHydrationWarning>
+                    <Calendar
+                      size={12}
+                      style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }}
+
+                    />
                     {new Date(event.date).toLocaleDateString('id-ID', {
                       day: 'numeric',
                       month: 'long',

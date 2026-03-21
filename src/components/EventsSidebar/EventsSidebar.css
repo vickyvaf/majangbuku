@@ -158,18 +158,22 @@ body.nav-open .events-trigger-btn {
   color: #ccc;
   font-style: italic;
   margin: 0;
+  margin-top: 0.25rem;
 }
 
 .event-card-date {
   font-size: 0.8rem;
   color: #888;
   margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .event-card-desc-snippet {
   font-size: 0.9rem;
   color: #ccc;
   line-height: 1.5;
+  margin-top: 1rem;
 }
 
 .sidebar-empty {
