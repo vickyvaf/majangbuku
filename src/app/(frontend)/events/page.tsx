@@ -60,7 +60,7 @@ export default async function EventsPage() {
                   })
 
                   return (
-                    <RevealRow key={event.id} className="event-table-row" delay={index * 50}>
+                    <RevealRow key={event.id} className="event-table-row" delay={Math.min(index * 50, 500)}>
                       <div className="col-event">
                         {event.image && typeof event.image !== 'number' && (
                           <div className="event-row-thumb-wrapper">

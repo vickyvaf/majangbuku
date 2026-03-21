@@ -376,10 +376,12 @@ body.nav-open .page-logo-img {
   padding: 1.5rem 0;
   border-bottom: 1px solid #e0ddd8;
   align-items: flex-start;
+  opacity: 0;
+  transform: translateY(30px);
   transition:
     background-color 0.3s ease,
-    opacity 0.8s ease,
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 1s ease,
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .event-table-row.is-visible {

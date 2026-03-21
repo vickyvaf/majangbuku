@@ -15,10 +15,10 @@ export const RevealRow: React.FC<RevealRowProps> = ({ children, className, delay
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.unobserve(entry.target)
-        }
+        // If we want both fade in and fade out as it enters/leaves screen
+        setIsVisible(entry.isIntersecting)
+        // If we want it only one time, keep unobserve. The user said fade in / fade out.
+        // observer.unobserve(entry.target)
       },
       {
         threshold: 0.1,
@@ -40,7 +40,7 @@ export const RevealRow: React.FC<RevealRowProps> = ({ children, className, delay
     <div
       ref={rowRef}
       className={`${className} ${isVisible ? 'is-visible' : ''}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ transitionDelay: isVisible ? `${delay}ms` : '0ms' }}
     >
       {children}
     </div>
