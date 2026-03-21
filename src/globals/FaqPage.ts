@@ -18,5 +18,14 @@ export const FaqPage: GlobalConfig = {
       required: false,
       defaultValue: 'Find your answers for the most asked questions',
     },
+    {
+      name: 'faqs',
+      type: 'relationship',
+      relationTo: 'faq',
+      hasMany: true,
+      admin: {
+        description: 'Pilih dan urutkan FAQ yang ingin ditampilkan (drag and drop di sini untuk mengubah urutan)',
+      },
+    },
   ],
 }

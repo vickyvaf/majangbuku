@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, Field } from 'payload'
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -23,6 +23,13 @@ export const Events: CollectionConfig = {
       name: 'date',
       type: 'date',
       required: true,
+      admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+          timeFormat: 'HH:mm',
+          displayFormat: 'd MMM yyyy, HH:mm',
+        },
+      },
     },
     {
       name: 'location',

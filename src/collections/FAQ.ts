@@ -5,6 +5,7 @@ export const FAQ: CollectionConfig = {
   admin: {
     useAsTitle: 'question',
   },
+  orderable: true,
   access: {
     read: () => true,
   },

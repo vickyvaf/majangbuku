@@ -216,6 +216,7 @@ export interface Event {
  */
 export interface Faq {
   id: number;
+  _order?: string | null;
   question: string;
   answer: {
     root: {
@@ -456,6 +457,7 @@ export interface EventsSelect<T extends boolean = true> {
  * via the `definition` "faq_select".
  */
 export interface FaqSelect<T extends boolean = true> {
+  _order?: T;
   question?: T;
   answer?: T;
   updatedAt?: T;
@@ -600,6 +602,10 @@ export interface FaqPage {
   id: number;
   title: string;
   subtitle?: string | null;
+  /**
+   * Pilih dan urutkan FAQ yang ingin ditampilkan (drag and drop di sini untuk mengubah urutan)
+   */
+  faqs?: (number | Faq)[] | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -635,6 +641,7 @@ export interface EventsPageSelect<T extends boolean = true> {
 export interface FaqPageSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  faqs?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

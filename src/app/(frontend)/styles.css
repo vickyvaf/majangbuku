@@ -12,13 +12,17 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  font-family: var(--font-main); /* Force it more explicitly than inherit */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  font-family: var(--font-main);
+  /* Force it more explicitly than inherit */
 }
 
 *::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  display: none;
+  /* Chrome, Safari and Opera */
 }
 
 html {
@@ -135,7 +139,8 @@ body.nav-open .page-logo-img {
 
 .carousel-strip {
   position: relative;
-  width: 10vh; /* Changed from 70px */
+  width: 10vh;
+  /* Changed from 70px */
   height: 100%;
   overflow: hidden;
   transition:
@@ -154,19 +159,23 @@ body.nav-open .page-logo-img {
 .carousel-strip:nth-child(odd) {
   height: 75%;
 }
+
 .carousel-strip:nth-child(even) {
   height: 85%;
 }
+
 .carousel-strip:nth-child(3n) {
   height: 90%;
 }
+
 .carousel-strip:nth-child(4n) {
   height: 70%;
 }
 
 .carousel-strip:hover,
 .carousel-strip.active {
-  width: 17vh; /* Changed from 150px to maintain proportion */
+  width: 17vh;
+  /* Changed from 150px to maintain proportion */
   filter: grayscale(0);
   opacity: 1;
   z-index: 5;
@@ -256,6 +265,7 @@ body.nav-open .page-logo-img {
   display: flex;
   gap: 1rem;
 }
+
 /* Page Layouts */
 .page-container {
   padding: 1rem 2rem 4rem;
@@ -267,9 +277,12 @@ body.nav-open .page-logo-img {
 
 .page-title {
   color: var(--text);
-  font-size: 4rem; /* Match library font size */
-  font-style: italic; /* Match library italic style */
-  font-weight: 400; /* Match library weight */
+  font-size: 4rem;
+  /* Match library font size */
+  font-style: italic;
+  /* Match library italic style */
+  font-weight: 400;
+  /* Match library weight */
   margin-bottom: 1.5rem;
   text-align: center;
   position: relative;
@@ -379,7 +392,7 @@ body.nav-open .page-logo-img {
 }
 
 .event-table-row .col-event {
-  align-items: center;
+  align-items: start;
 }
 
 .event-row-thumb-wrapper {
@@ -423,8 +436,10 @@ body.nav-open .page-logo-img {
 
 .event-row-subtitle {
   font-size: 0.95rem;
-  color: #666; /* Match screenshot soft text */
+  color: #666;
+  /* Match screenshot soft text */
   margin: 0;
+  margin-top: 0.5rem;
   line-height: 1.4;
 }
 
@@ -574,6 +589,7 @@ body.nav-open .page-logo-img {
   .page-title {
     font-size: 2.5rem;
   }
+
   .page-container {
     padding-top: 6rem;
   }
@@ -582,7 +598,8 @@ body.nav-open .page-logo-img {
 /* Lexical Rich Text Styling to match Payload UI */
 .lexical-content {
   font-family: var(--font-main);
-  line-height: 1.7; /* Slightly tighter for that professional look */
+  line-height: 1.7;
+  /* Slightly tighter for that professional look */
   color: var(--text);
   font-size: 1.15rem;
   width: 100%;
@@ -590,12 +607,14 @@ body.nav-open .page-logo-img {
 
 .lexical-content p {
   margin-bottom: 1.25rem;
-  opacity: 0.95; /* More readable than 0.9 */
+  opacity: 0.95;
+  /* More readable than 0.9 */
 }
 
 /* Bold paragraphs or labels */
 .lexical-content strong {
-  font-weight: 750; /* Extra bold for headings */
+  font-weight: 750;
+  /* Extra bold for headings */
   color: #1a1a1a;
   display: inline-block;
   margin-top: 0.5rem;
@@ -616,14 +635,17 @@ body.nav-open .page-logo-img {
 .lexical-content h1 {
   font-size: 2.75rem;
 }
+
 .lexical-content h2 {
   font-size: 2.25rem;
   border-bottom: 1px solid var(--border);
   padding-bottom: 0.75rem;
 }
+
 .lexical-content h3 {
   font-size: 1.75rem;
 }
+
 .lexical-content h4 {
   font-size: 1.4rem;
 }
@@ -631,11 +653,13 @@ body.nav-open .page-logo-img {
 .lexical-content ul,
 .lexical-content ol {
   margin: 1.5rem 0;
-  padding-left: 1.5rem; /* Standard indentation */
+  padding-left: 1.5rem;
+  /* Standard indentation */
 }
 
 .lexical-content ul {
-  list-style-type: none; /* We'll use custom bullets for more control */
+  list-style-type: none;
+  /* We'll use custom bullets for more control */
 }
 
 .lexical-content ul li {
@@ -703,10 +727,11 @@ body.nav-open .page-logo-img {
 }
 
 /* Specific fix for "Visi" and "Misi" if they are bold at start of paragraph */
-.lexical-content p > strong:first-child {
+.lexical-content p>strong:first-child {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
-  display: block; /* Force it to act like a heading */
+  display: block;
+  /* Force it to act like a heading */
   margin-top: 2rem;
   color: #000;
 }
@@ -730,10 +755,11 @@ body.nav-open .page-logo-img {
 }
 
 /* First element shouldn't have top margin */
-.lexical-content > :first-child {
+.lexical-content> :first-child {
   margin-top: 0 !important;
 }
-.lexical-content > p:first-child > strong:first-child {
+
+.lexical-content>p:first-child>strong:first-child {
   margin-top: 0 !important;
 }
 
@@ -783,6 +809,7 @@ body.nav-open .page-logo-img {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }

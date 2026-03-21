@@ -13,9 +13,14 @@ export default async function FAQPage() {
     slug: 'faq-page',
   })
   
-  const { docs: faqs } = await payload.find({
+  const { docs: fetchedFaqs } = await payload.find({
     collection: 'faq',
+    limit: 100,
   })
+
+  const faqs = (faqPageData.faqs && faqPageData.faqs.length > 0 
+    ? faqPageData.faqs 
+    : fetchedFaqs) as Faq[]
 
   return (
     <>
