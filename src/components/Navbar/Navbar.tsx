@@ -70,6 +70,9 @@ export const Navbar = () => {
           <Link href="/events" className={`nav-item ${pathname === '/events' ? 'active' : ''}`}>
             Events
           </Link>
+          <Link href="/library" className={`nav-item ${pathname === '/library' ? 'active' : ''}`}>
+            Library
+          </Link>
           <Link href="/faq" className={`nav-item ${pathname === '/faq' ? 'active' : ''}`}>
             FAQ
           </Link>

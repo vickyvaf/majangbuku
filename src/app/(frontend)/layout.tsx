@@ -12,7 +12,7 @@ import './styles.css'
 const bitter = Bitter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-serif',
+  variable: '--font-main',
 })
 
 export const metadata = {

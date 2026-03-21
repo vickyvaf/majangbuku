@@ -72,6 +72,9 @@ export interface Config {
     events: Event;
     faq: Faq;
     'social-media': SocialMedia;
+    'book-categories': BookCategory;
+    books: Book;
+    'borrowing-records': BorrowingRecord;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +87,9 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     'social-media': SocialMediaSelect<false> | SocialMediaSelect<true>;
+    'book-categories': BookCategoriesSelect<false> | BookCategoriesSelect<true>;
+    books: BooksSelect<false> | BooksSelect<true>;
+    'borrowing-records': BorrowingRecordsSelect<false> | BorrowingRecordsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -253,6 +259,48 @@ export interface SocialMedia {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "book-categories".
+ */
+export interface BookCategory {
+  id: number;
+  title: string;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "books".
+ */
+export interface Book {
+  id: number;
+  title: string;
+  author: string;
+  coverImage: number | Media;
+  categories?: (number | BookCategory)[] | null;
+  isbn_sku?: string | null;
+  owner_donator?: string | null;
+  borrowCount?: number | null;
+  status: 'available' | 'borrowed' | 'reference_only';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "borrowing-records".
+ */
+export interface BorrowingRecord {
+  id: number;
+  book: number | Book;
+  borrowerName: string;
+  borrowDate: string;
+  expectedReturn: string;
+  status?: ('active' | 'returned') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -294,6 +342,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'social-media';
         value: number | SocialMedia;
+      } | null)
+    | ({
+        relationTo: 'book-categories';
+        value: number | BookCategory;
+      } | null)
+    | ({
+        relationTo: 'books';
+        value: number | Book;
+      } | null)
+    | ({
+        relationTo: 'borrowing-records';
+        value: number | BorrowingRecord;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -411,6 +471,45 @@ export interface SocialMediaSelect<T extends boolean = true> {
   order?: T;
   active?: T;
   icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "book-categories_select".
+ */
+export interface BookCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "books_select".
+ */
+export interface BooksSelect<T extends boolean = true> {
+  title?: T;
+  author?: T;
+  coverImage?: T;
+  categories?: T;
+  isbn_sku?: T;
+  owner_donator?: T;
+  borrowCount?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "borrowing-records_select".
+ */
+export interface BorrowingRecordsSelect<T extends boolean = true> {
+  book?: T;
+  borrowerName?: T;
+  borrowDate?: T;
+  expectedReturn?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }

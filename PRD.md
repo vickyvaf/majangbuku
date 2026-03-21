@@ -50,6 +50,34 @@
   - **Icon** (Select): Platform-specific icon style.
 - **Integration**: Links are displayed in the sidebar footer across all pages.
 
+### 4.6 Library (Pinjam Buku)
+- **Book Catalog**: A grid of books available for community borrowing.
+- **Availability Tracking**: 
+  - Real-time counter showing "X available out of Y total books".
+  - Toggle to filter exclusively by "Available Now".
+- **Catalog Filters (Frontend - Dynamic)**:
+  - **All Collections**: Show everything.
+  - **Dynamic Categories**: Any categories added via the "Categories" collection in Payload CMS (e.g., Anak-Anak, Remaja, Langka).
+  - **Paling Sering Dibaca**: Popular books based on borrow frequency.
+- **Borrower List (Admin/Transparency)**:
+  - A dedicated view (or internal CMS table) showing current active borrowers.
+  - Fields: `Book Title`, `Borrower Name`, `Borrow Date`, `Expected Return`.
+- **Fields Expected in CMS**:
+  - **Book Categories** (New Collection): Title (Text), Slug (Text).
+  - **Books**:
+    - **Title** (Text, Required)
+    - **Author** (Text, Required)
+    - **Cover Image** (Upload: Media)
+    - **Categories** (Relationship to `BookCategories`, hasMany): To enable dynamic filters.
+    - **ISBN/SKU** (Text, Optional)
+    - **Owner/Donator** (Text, Optional): To acknowledge who contributed the book.
+    - **Borrow Count** (Number, Read-only): Incremented automatically by the borrow system to track popularity.
+  - **Status** (Select): 
+    - `Available`
+    - `Borrowed`
+    - `Reference Only` (Not for borrowing)
+- **Borrowing Records**: Internal collection to track who borrowed what and when.
+
 ## 5. Design Requirements
 ### 5.1 Aesthetics
 - **Theme Color**: Primary Orange (`#F78750`).
@@ -70,6 +98,35 @@
 - **Interactive Carousel**: Custom-built vertical expansion carousel with video autoplay on hover.
 - **Content Management**: All text-based content, events, and FAQ items must be editable via the CMS.
 - **Responsive Design**: Fully optimized for Desktop, Tablet, and Mobile (carousel should adapt to horizontal scrolling or stacked view on mobile).
+
+### 6.1 Borrowing Flow (Pinjam Buku)
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant W as Website
+    participant A as Admin
+    U->>W: Browse Book Catalog
+    W->>U: Show "Available" Books
+    U->>W: Select Book (Click "Pinjam")
+    W->>A: Open WhatsApp / Submit Form Request
+    A->>A: Verify Request & Pickup Coordination
+    A->>W: Update Book Status (CMS: Borrowed)
+    A->>U: Hand over Book
+    U->>A: Return Book
+    A->>W: Update Book Status (CMS: Available)
+```
+
+1. **Discovery**: User explores the "Library" catalog.
+2. **Selection**: User clicks on a book to see its details and current availability status.
+3. **Request**:
+   - If `Available`, a "Pinjam Buku" button appears.
+   - User fills a simple form (Name, WA Number, Proposed Return Date).
+   - Alternatively, a direct WA link with a pre-filled message specifying the book title.
+4. **Fulfillment**: 
+   - Admin receives the request and coordinates the physical hand-over (e.g., at the next *Book Picnic*).
+   - Admin updates the book status to `Borrowed` in the CMS.
+5. **Return**: 
+   - Once returned, Admin marks the book back as `Available` and records the return date.
 
 ## 7. Technical Stack
 - **Framework**: Next.js (App Router).

@@ -12,6 +12,9 @@ import { SocialMedia } from './collections/SocialMedia'
 import { BiographyPage } from './globals/BiographyPage'
 import { EventsPage } from './globals/EventsPage'
 import { FaqPage } from './globals/FaqPage'
+import { BookCategories } from './collections/BookCategories'
+import { Books } from './collections/Books'
+import { BorrowingRecords } from './collections/BorrowingRecords'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -39,7 +42,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users, Media, Events, FAQ, SocialMedia],
+  collections: [Users, Media, Events, FAQ, SocialMedia, BookCategories, Books, BorrowingRecords],
   globals: [BiographyPage, EventsPage, FaqPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

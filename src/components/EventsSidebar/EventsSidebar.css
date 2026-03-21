@@ -33,7 +33,8 @@ body.nav-open .events-trigger-btn {
 .events-sidebar {
   position: fixed;
   top: 0;
-  left: -400px; /* Hidden by default */
+  left: -400px;
+  /* Hidden by default */
   width: 400px;
   height: 100vh;
   background: black;
@@ -47,7 +48,8 @@ body.nav-open .events-trigger-btn {
 }
 
 .events-sidebar.open {
-  transform: translateX(400px); /* Slide in from left */
+  transform: translateX(400px);
+  /* Slide in from left */
 }
 
 .events-sidebar-overlay {
@@ -75,9 +77,11 @@ body.nav-open .events-trigger-btn {
   align-items: center;
   gap: 1.5rem;
   padding: 2.5rem;
-  padding-bottom: 1.5rem; /* Less space between header and scrollable content */
+  padding-bottom: 1.5rem;
+  /* Less space between header and scrollable content */
   flex-shrink: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Optional: visual separator */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  /* Optional: visual separator */
 }
 
 .sidebar-close-btn {
@@ -93,7 +97,7 @@ body.nav-open .events-trigger-btn {
 }
 
 .sidebar-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
   font-size: 1.5rem;
   font-weight: 500;
   margin: 0;
@@ -106,14 +110,17 @@ body.nav-open .events-trigger-btn {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 0 2.5rem 2.5rem; /* No top padding as header has it */
+  padding: 0 2.5rem 2.5rem;
+  /* No top padding as header has it */
   overflow-y: auto;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
+  /* Firefox */
   margin-top: 1rem;
 }
 
 .sidebar-content::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
+  /* Chrome/Safari */
 }
 
 .sidebar-event-card {
@@ -139,7 +146,7 @@ body.nav-open .events-trigger-btn {
 }
 
 .event-card-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
   font-size: 1.25rem;
   margin: 0;
   margin-bottom: 0.15rem;
@@ -171,6 +178,7 @@ body.nav-open .events-trigger-btn {
 }
 
 .view-all-events {
+  font-family: var(--font-main);
   margin-top: 1rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -185,7 +193,8 @@ body.nav-open .events-trigger-btn {
   padding-top: 1.5rem;
   flex-shrink: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: black; /* Ensure it covers anything underneath */
+  background: black;
+  /* Ensure it covers anything underneath */
 }
 
 .sidebar-socials {
@@ -195,6 +204,7 @@ body.nav-open .events-trigger-btn {
 }
 
 .follow-label {
+  font-family: var(--font-main);
   font-size: 0.65rem;
   color: #444;
   letter-spacing: 0.2em;

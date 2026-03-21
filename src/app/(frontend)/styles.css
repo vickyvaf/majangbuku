@@ -4,7 +4,7 @@
   --text: #2d2d2d;
   --accent: #c46210;
   --border: #d1cec9;
-  --font-serif: 'Bitter', serif; /* Fallback for Clearface */
+  --font-main: 'Bitter', serif;
   --transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -14,6 +14,7 @@
   padding: 0;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  font-family: var(--font-main); /* Force it more explicitly than inherit */
 }
 
 *::-webkit-scrollbar {
@@ -29,7 +30,7 @@ body {
   min-height: 100vh;
   background-color: #e8e6e1;
   color: var(--text);
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -41,6 +42,8 @@ h4 {
   font-weight: 700;
   line-height: 1.1;
   color: var(--text);
+  font-family: var(--font-main);
+  letter-spacing: -0.01em;
 }
 
 a {
@@ -219,12 +222,12 @@ body.nav-open .page-logo-img {
   color: #666;
   margin-bottom: 0.5rem;
   font-style: italic;
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
 }
 
 .info-title {
   font-size: 2rem;
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
   color: #1a1a1a;
   margin-bottom: 0.25rem;
   line-height: 0.9;
@@ -264,10 +267,18 @@ body.nav-open .page-logo-img {
 
 .page-title {
   color: var(--text);
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
+  font-size: 4rem; /* Match library font size */
+  font-style: italic; /* Match library italic style */
+  font-weight: 400; /* Match library weight */
+  margin-bottom: 1.5rem;
   text-align: center;
   position: relative;
+  font-family: var(--font-main);
+}
+
+.page-title span {
+  font-style: normal;
+  font-weight: 700;
 }
 
 .faq-subtitle {
@@ -275,7 +286,7 @@ body.nav-open .page-logo-img {
   font-size: 1.25rem;
   color: #666;
   margin-bottom: 4rem;
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
 }
 
 .section-text {
@@ -328,7 +339,7 @@ body.nav-open .page-logo-img {
   padding: 1rem 0;
   border-bottom: 2px solid #e0ddd8;
   font-size: 0.8rem;
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #888;
@@ -356,8 +367,6 @@ body.nav-open .page-logo-img {
     background-color 0.3s ease,
     opacity 0.8s ease,
     transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  opacity: 0;
-  transform: translateY(30px);
 }
 
 .event-table-row.is-visible {
@@ -398,7 +407,7 @@ body.nav-open .page-logo-img {
 .event-row-title {
   font-size: 1.25rem;
   font-weight: 500;
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
   color: #1a1a1a;
   margin: 0;
   line-height: 1.2;
@@ -484,7 +493,7 @@ body.nav-open .page-logo-img {
 .faq-accordion-question {
   font-size: 1.5rem;
   font-weight: 500;
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
   color: #1a1a1a;
   margin: 0;
   line-height: 1.2;
@@ -572,7 +581,7 @@ body.nav-open .page-logo-img {
 
 /* Lexical Rich Text Styling to match Payload UI */
 .lexical-content {
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
   line-height: 1.7; /* Slightly tighter for that professional look */
   color: var(--text);
   font-size: 1.15rem;
@@ -657,7 +666,7 @@ body.nav-open .page-logo-img {
 .lexical-content ol li::marker {
   color: inherit;
   font-weight: 700;
-  font-family: var(--font-serif);
+  font-family: var(--font-main);
 }
 
 .lexical-content em {
