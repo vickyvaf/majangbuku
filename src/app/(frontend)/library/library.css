@@ -16,7 +16,7 @@
 .library-sidebar {
   grid-column: 1;
   grid-row: 1 / span 3;
-  /* Spans from the top across header and availability bar rows */
+  /* Spans from the top across header and content */
   width: 200px;
   position: sticky;
   top: 8rem;
@@ -361,22 +361,6 @@
   font-style: italic;
 }
 
-/* Availability Counter */
-.availability-bar {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-  color: #888;
-}
-
-.availability-bar span {
-  color: var(--text);
-  font-weight: 700;
-  margin: 0 0.5rem;
-}
 
 @media (max-width: 1200px) {
   .library-layout {
@@ -394,7 +378,6 @@
   }
 
   .library-header,
-  .availability-bar,
   .library-main {
     grid-column: 2;
   }

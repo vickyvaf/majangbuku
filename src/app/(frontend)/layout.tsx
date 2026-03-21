@@ -1,12 +1,10 @@
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Bitter } from 'next/font/google'
 import { Background } from '@/components/Background/Background'
-import { Navbar } from '@/components/Navbar/Navbar'
 import { EventsSidebar } from '@/components/EventsSidebar/EventsSidebar'
-import { getPayload } from 'payload'
+import { Navbar } from '@/components/Navbar/Navbar'
 import config from '@payload-config'
+import { Bitter } from 'next/font/google'
+import { getPayload } from 'payload'
+import React from 'react'
 import './styles.css'
 
 const bitter = Bitter({
@@ -26,7 +24,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const payload = await getPayload({ config })
-  
+
   // Fetch latest 3 upcoming events
   const { docs: eventsDocs } = await payload.find({
     collection: 'events',
@@ -42,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // Format events for component
   const events = eventsDocs.map(doc => {
     const eventImage = doc.image && typeof doc.image !== 'number' ? doc.image : null;
-    
+
     return {
       id: String(doc.id),
       title: doc.title,

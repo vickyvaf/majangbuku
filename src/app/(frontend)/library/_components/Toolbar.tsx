@@ -71,9 +71,10 @@ export const Toolbar = ({
             value={sort}
             onChange={(e) => handleSortChange(e.target.value)}
           >
+            <option value="-borrowCount">PALING SERING DIBACA</option>
             <option value="-createdAt">BARU DITAMBAHKAN</option>
             <option value="title">JUDUL (A-Z)</option>
-            <option value="-borrowCount">PALING SERING DIBACA</option>
+            <option value="-title">JUDUL (Z-A)</option>
           </select>
           <ChevronDown size={14} className="select-chevron" />
         </label>

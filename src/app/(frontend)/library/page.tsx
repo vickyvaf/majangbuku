@@ -65,25 +65,12 @@ export default async function LibraryPage({
   }
 
   // Fetch books
-  const { docs: books, totalDocs } = await payload.find({
+  const { docs: books } = await payload.find({
     collection: 'books',
     where,
     sort,
     depth: 1,
   })
-
-  // Real-time counter: count available books
-  const { totalDocs: totalAvailable } = await payload.find({
-    collection: 'books',
-    where: {
-      ...where,
-      status: {
-        equals: 'available'
-      }
-    },
-    limit: 1
-  })
-
   return (
     <>
       <Header />
@@ -96,9 +83,6 @@ export default async function LibraryPage({
             </p>
           </header>
 
-          <div className="availability-bar">
-            Tersedia: <span>{totalAvailable}</span> dari <span>{totalDocs}</span> total buku
-          </div>
           <aside className="library-sidebar">
             <div className="sidebar-section">
               <h3 className="sidebar-title">Koleksi</h3>
