@@ -228,8 +228,8 @@ body.nav-open .events-trigger-btn {
 /* Mobile responsive */
 @media (max-width: 768px) {
   .events-trigger-btn {
-    top: 1.5rem;
-    left: 1.5rem;
+    top: 2.5rem;
+    left: 2.5rem;
   }
 
   .events-sidebar {
