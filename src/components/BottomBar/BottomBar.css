@@ -9,8 +9,9 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: var(--theme-elevation-0, #ffffff);
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    background-color: var(--bg);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.05);
     z-index: 1000;
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
@@ -32,12 +33,12 @@
     gap: 4px;
     color: #888888;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: all 0.3s ease;
     flex: 1;
   }
 
   .bottom-bar-item:hover {
-    color: #444444;
+    opacity: 0.8;
   }
 
   .bottom-bar-item.active {
