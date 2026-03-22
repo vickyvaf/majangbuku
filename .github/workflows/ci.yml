@@ -73,17 +73,27 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
           script: |
-            cd /apps/majangbuku
-            git pull origin main
+            # Set working directory (adjust this to your actual project path on VPS)
+            PROJECT_PATH="/apps/majangbuku"
             
-            # Ensure .env exists with current secrets during build
-            # We use a heredoc to avoid complex quoting issues
+            # Create directory if doesn't exist
+            mkdir -p $PROJECT_PATH
+            cd $PROJECT_PATH
+            
+            # If not a git repo, clone it first. 
+            # Note: For private repos you'll need setup SSH on VPS or use Token.
+            # Assuming public for now or SSH already setup.
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/vickyvaf/majangbuku.git .
+            else
+              git pull origin main
+            fi
+            
             cat > .env << 'EOF'
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
             NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000' }}
             EOF
             
-            
-            # Restart containers with the latest code and env
-            docker compose up -d --build
+            # Try 'docker compose' first, if fails try 'docker-compose'
+            docker compose up -d --build || docker-compose up -d --build
