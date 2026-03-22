@@ -53,6 +53,9 @@ jobs:
       - name: Type Check
         run: pnpm exec tsc --noEmit
 
+      - name: Initialize Database Schema
+        run: pnpm payload:db-push
+
       - name: Build
         run: pnpm build
 
@@ -83,6 +86,7 @@ jobs:
             
             pnpm install --frozen-lockfile
             pnpm generate:types
+            pnpm payload:db-push
             pnpm build
             # If using PM2
             # pm2 restart majangbuku
