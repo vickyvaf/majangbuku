@@ -73,30 +73,38 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
           script: |
-            # Using Home directory to avoid permission issues with /apps
-            PROJECT_PATH="~/majangbuku"
+            # Use absolute home path to avoid expansion issues
+            PROJECT_PATH="$HOME/majangbuku"
             
-            # Create directory if doesn't exist and enter it
+            # Ensure directory exists and enter it
             mkdir -p $PROJECT_PATH
-            eval cd $PROJECT_PATH
+            cd $PROJECT_PATH
             
-            # Robust Git Init/Pull
+            # Robust Git deployment
             if [ ! -d ".git" ]; then
-              git init
-              git remote add origin https://github.com/vickyvaf/majangbuku.git || true
-              git fetch origin
-              git checkout -f main || git checkout -b main
-              git reset --hard origin/main
+              echo "Cloning repository..."
+              git clone https://github.com/vickyvaf/majangbuku.git .
             else
+              echo "Updating repository..."
               git fetch origin main
               git reset --hard origin/main
             fi
             
+            # Create environment file
             cat > .env << 'EOF'
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
             NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000' }}
             EOF
             
-            # Try 'docker-compose' (common on older servers) then 'docker compose'
-            docker-compose up -d --build || docker compose up -d --build
+            # Deployment logic: Try docker compose (V2) then docker-compose (V1)
+            if docker compose version >/dev/null 2>&1; then
+              echo "Using docker compose (V2)"
+              docker compose up -d --build
+            elif command -v docker-compose >/dev/null 2>&1; then
+              echo "Using docker-compose (V1)"
+              docker-compose up -d --build
+            else
+              echo "Error: Neither 'docker compose' nor 'docker-compose' found."
+              exit 1
+            fi
