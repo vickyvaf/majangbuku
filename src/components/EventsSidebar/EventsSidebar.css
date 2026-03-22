@@ -226,7 +226,12 @@ body.nav-open .events-trigger-btn {
 }
 
 /* Mobile responsive */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .events-trigger-btn {
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+
   .events-sidebar {
     width: 100vw;
     left: -100vw;

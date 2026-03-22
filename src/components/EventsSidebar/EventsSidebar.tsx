@@ -62,7 +62,7 @@ export const EventsSidebar: React.FC<EventsSidebarProps> = ({ events, socialLink
         onClick={toggleSidebar}
         aria-label="Open Events Sidebar"
       >
-        <Megaphone size={28} />
+        <Megaphone size={24} />
       </button>
 
       <div
