@@ -19,7 +19,6 @@
 - **Hero Section**: A high-impact carousel inspired by `alanmenken.com`.
 - **Carousel Design**: 
   - Vertical strips (strips horizontally aligned).
-  - **Interaction**: On hover, a strip expands (flex-grow) and plays a short video of the activity it represents.
   - **Proposed Strips**: *Book Picnic*, *5 AM Club*, *Silent Reading*, *LCW (Literacy Camp & Workshop)*.
 - **Call to Action**: Links to join the community or view events.
 
@@ -91,11 +90,10 @@
 - **Primary Font**: **Clearface** (Serif). This font should be used for headings and body text to maintain a classic, literary feel.
 
 ### 5.3 Media
-- **Videos**: Short, high-quality loops for the homepage carousel.
 - **Images**: Warm-toned photography of reading sessions.
 
 ## 6. Functional Features
-- **Interactive Carousel**: Custom-built vertical expansion carousel with video autoplay on hover.
+- **Interactive Carousel**: Custom-built vertical expansion carousel.
 - **Content Management**: All text-based content, events, and FAQ items must be editable via the CMS.
 - **Responsive Design**: Fully optimized for Desktop, Tablet, and Mobile (carousel should adapt to horizontal scrolling or stacked view on mobile).
 
