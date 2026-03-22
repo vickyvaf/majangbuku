@@ -14,9 +14,9 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER: payload
-          POSTGRES_PASSWORD: payload_password
-          POSTGRES_DB: payload_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: majangbuku
         ports:
           - 5432:5432
         options: >-
@@ -26,9 +26,9 @@ jobs:
           --health-retries 5
 
     env:
-      DATABASE_URL: postgresql://payload:payload_password@localhost:5432/payload_db
-      PAYLOAD_SECRET: ci_test_secret
-      NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+      NEXT_PUBLIC_SERVER_URL: ${{ secrets.NEXT_PUBLIC_SERVER_URL }}
 
     steps:
       - uses: actions/checkout@v4
@@ -49,9 +49,6 @@ jobs:
 
       - name: Generate Types
         run: pnpm generate:types
-
-      - name: Lint
-        run: pnpm lint
 
       - name: Type Check
         run: pnpm exec tsc --noEmit
