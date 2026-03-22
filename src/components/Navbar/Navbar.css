@@ -82,7 +82,13 @@
 }
 
 .nav-overlay.open {
-  height: 100vh;
+  height: 40vh;
+}
+
+@media (max-width: 768px) {
+  .nav-overlay.open {
+    height: 100vh;
+  }
 }
 
 .nav-backdrop {
