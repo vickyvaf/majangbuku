@@ -24,7 +24,7 @@ ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
 ARG PAYLOAD_SECRET
 ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
 
-RUN pnpm run build
+RUN pnpm run build:prod
 
 # 3. Production runner
 FROM base AS runner
