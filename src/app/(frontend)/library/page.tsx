@@ -108,6 +108,8 @@ export default async function LibraryPage({
               initialSearch={search}
               availableOnly={availableOnly}
               sort={sort}
+              categories={categories as any[]}
+              currentCategory={category}
             />
 
             <div className="books-grid">
