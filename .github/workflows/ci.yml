@@ -84,11 +84,6 @@ jobs:
             NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000' }}
             EOF
             
-            pnpm install --frozen-lockfile
-            pnpm generate:types
-            pnpm payload:db-push
-            pnpm build
-            # If using PM2
-            # pm2 restart majangbuku
-            # If using Docker
-            # docker compose up -d --build
+            
+            # Restart containers with the latest code and env
+            docker compose up -d --build
