@@ -73,20 +73,23 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
           script: |
-            # Set working directory (adjust this to your actual project path on VPS)
-            PROJECT_PATH="/apps/majangbuku"
+            # Using Home directory to avoid permission issues with /apps
+            PROJECT_PATH="~/majangbuku"
             
-            # Create directory if doesn't exist
+            # Create directory if doesn't exist and enter it
             mkdir -p $PROJECT_PATH
-            cd $PROJECT_PATH
+            eval cd $PROJECT_PATH
             
-            # If not a git repo, clone it first. 
-            # Note: For private repos you'll need setup SSH on VPS or use Token.
-            # Assuming public for now or SSH already setup.
+            # Robust Git Init/Pull
             if [ ! -d ".git" ]; then
-              git clone https://github.com/vickyvaf/majangbuku.git .
+              git init
+              git remote add origin https://github.com/vickyvaf/majangbuku.git || true
+              git fetch origin
+              git checkout -f main || git checkout -b main
+              git reset --hard origin/main
             else
-              git pull origin main
+              git fetch origin main
+              git reset --hard origin/main
             fi
             
             cat > .env << 'EOF'
@@ -95,5 +98,5 @@ jobs:
             NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000' }}
             EOF
             
-            # Try 'docker compose' first, if fails try 'docker-compose'
-            docker compose up -d --build || docker-compose up -d --build
+            # Try 'docker-compose' (common on older servers) then 'docker compose'
+            docker-compose up -d --build || docker compose up -d --build
