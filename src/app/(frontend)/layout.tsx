@@ -1,6 +1,7 @@
 import { Background } from '@/components/Background/Background'
 import { EventsSidebar } from '@/components/EventsSidebar/EventsSidebar'
 import { Navbar } from '@/components/Navbar/Navbar'
+import { BottomBar } from '@/components/BottomBar/BottomBar'
 import config from '@payload-config'
 import { Bitter } from 'next/font/google'
 import { getPayload } from 'payload'
@@ -79,6 +80,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <EventsSidebar events={events} socialLinks={socialLinks} />
         <Navbar />
         <main className="main-wrapper">{children}</main>
+        <BottomBar />
       </body>
     </html>
   )
