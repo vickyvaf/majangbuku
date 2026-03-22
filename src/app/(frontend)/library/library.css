@@ -381,8 +381,9 @@
 
 @media (max-width: 1200px) {
   .library-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .books-grid {
@@ -396,7 +397,7 @@
 
   .library-header,
   .library-main {
-    grid-column: 1;
+    width: 100%;
   }
   
   .toolbar-actions {
@@ -408,7 +409,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .books-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -429,6 +430,13 @@
     font-size: 2.5rem;
   }
 
+  /* keep 2 columns for tablet portrait */
+  .books-grid {
+     gap: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
   .books-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;

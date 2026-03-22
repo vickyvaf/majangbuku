@@ -201,6 +201,7 @@
   }
 
   .hamburger-btn {
+    display: none;
     top: 2.5rem;
     right: 2.5rem;
   }
