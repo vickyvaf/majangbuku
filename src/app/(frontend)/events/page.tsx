@@ -97,8 +97,10 @@ export default async function EventsPage() {
                             {formattedDate}
                           </p>
                           <p className="event-row-subtitle">
-                            {((event.description as any)?.root?.children?.[0]?.children?.[0]
-                              ?.text as string) || ''}
+                            {event.description
+                              ? ((event.description as any)?.root?.children?.[0]?.children?.[0]
+                                  ?.text as string) || ''
+                              : ''}
                           </p>
                         </div>
                       </div>
