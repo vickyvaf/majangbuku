@@ -71,7 +71,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ 22 }}
+          port: ${{ secrets.VPS_PORT || 22 }}
           script: |
             cd /apps/majangbuku
             git pull origin main
