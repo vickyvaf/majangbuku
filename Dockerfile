@@ -18,8 +18,11 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Nonaktifkan telemetry Next.js jika diinginkan
-# ENV NEXT_TELEMETRY_DISABLED=1
+# Set build-time environment variables
+ARG NEXT_PUBLIC_SERVER_URL
+ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
+ARG PAYLOAD_SECRET
+ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
 
 RUN pnpm run build
 
