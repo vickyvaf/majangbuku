@@ -98,11 +98,17 @@ jobs:
             EOF
             
             # Deployment logic: Try docker compose (V2) then docker-compose (V1)
+            PROJ_NAME="majangbuku"
             if docker compose version >/dev/null 2>&1; then
               echo "Using docker compose (V2)"
+              docker compose down || true
               docker compose up -d --build
             elif command -v docker-compose >/dev/null 2>&1; then
               echo "Using docker-compose (V1)"
+              # Fix for KeyError: 'ContainerConfig' in old docker-compose versions
+              echo "Cleaning up containers to avoid ContainerConfig bug..."
+              # Bruteforce cleanup if down fails
+              (docker-compose down || docker ps -a -q --filter "name=${PROJ_NAME}" | xargs -r docker rm -f) || true
               docker-compose up -d --build
             else
               echo "Error: Neither 'docker compose' nor 'docker-compose' found."
