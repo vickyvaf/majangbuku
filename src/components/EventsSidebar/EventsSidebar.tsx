@@ -75,7 +75,15 @@ export const EventsSidebar: React.FC<EventsSidebarProps> = ({ events, socialLink
           <button className="sidebar-close-btn" onClick={toggleSidebar} aria-label="Tutup">
             <X size={24} />
           </button>
-          <h2 className="sidebar-title">Kegiatan Terbaru</h2>
+          <h2 className="sidebar-title"
+            style={{
+              fontFamily: "var(--font-main)",
+              fontWeight: "500",
+              fontSize: "1.2rem",
+              margin: 0,
+              color: "white"
+            }}
+          >Kegiatan Terbaru</h2>
         </div>
 
         <div className="sidebar-content">
@@ -138,7 +146,8 @@ export const EventsSidebar: React.FC<EventsSidebarProps> = ({ events, socialLink
               <span className="follow-label">IKUTI MAJANG BUKU</span>
               <div className="social-icons">
                 {socialLinks.map((link) => (
-                  <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer">
+                  <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer"
+                  >
                     {link.name}
                   </a>
                 ))}

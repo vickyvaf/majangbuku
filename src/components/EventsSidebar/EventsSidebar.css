@@ -96,14 +96,6 @@ body.nav-open .events-trigger-btn {
   transition: transform 0.3s ease;
 }
 
-.sidebar-title {
-  font-family: var(--font-main);
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin: 0;
-  color: white;
-}
-
 /* Event Cards in Sidebar */
 .sidebar-content {
   flex: 1;
@@ -226,6 +218,7 @@ body.nav-open .events-trigger-btn {
   font-size: 0.75rem;
   color: #888;
   transition: color 0.3s ease;
+  text-decoration: underline;
 }
 
 .social-icons a:hover {
