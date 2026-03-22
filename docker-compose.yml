@@ -9,7 +9,7 @@ services:
       args:
         NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL:-http://localhost:3001}
         PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-        DATABASE_URL: postgresql://${DATABASE_USER:-postgres}:${DATABASE_PASSWORD:-password}@localhost:${DATABASE_PORT:-5435}/${DATABASE_NAME:-majangbuku}
+        DATABASE_URL: postgresql://${DATABASE_USER:-postgres}:${DATABASE_PASSWORD:-password}@127.0.0.1:${DATABASE_PORT:-5435}/${DATABASE_NAME:-majangbuku}
     ports:
       - "${PORT:-3001}:3000"
     depends_on:
