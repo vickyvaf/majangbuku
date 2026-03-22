@@ -80,20 +80,30 @@ export const StripsHero: React.FC<StripsHeroProps> = ({ imageSrc }) => {
   if (isMobile) {
     return (
       <div className="hero-strips-container" style={{ height: 'auto', width: '100%', boxSizing: 'border-box', borderBottom: '1px solid #0000001a', paddingBottom: '2rem' }}>
-        <img
-          src={imageSrc}
-          alt="Hero Cover"
+        <div
+          className={!isLoaded ? 'loading-skeleton' : ''}
           style={{
             width: '100%',
-            height: 'auto',
-            display: 'block',
             borderRadius: '8px',
-            opacity: isLoaded ? 1 : 0,
-            transition: 'opacity 0.6s ease-in-out',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+            minHeight: isLoaded ? 'auto' : '250px',
+            backgroundColor: isLoaded ? 'transparent' : '#d8d5d0',
+            overflow: 'hidden'
           }}
-          onLoad={() => setIsLoaded(true)}
-        />
+        >
+          <img
+            src={imageSrc}
+            alt="Hero Cover"
+            style={{
+              width: '100%',
+              height: 'auto',
+              display: 'block',
+              opacity: isLoaded ? 1 : 0,
+              transition: 'opacity 0.6s ease-in-out',
+            }}
+            onLoad={() => setIsLoaded(true)}
+          />
+        </div>
       </div>
     )
   }
