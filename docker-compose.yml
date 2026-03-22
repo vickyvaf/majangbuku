@@ -10,6 +10,8 @@ services:
     command: sh -c "corepack enable && pnpm install && pnpm run dev"
     depends_on:
       - postgres
+    environment:
+      DATABASE_URL: postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres:5432/${DATABASE_NAME}
     env_file:
       - .env
 
@@ -17,13 +19,13 @@ services:
     restart: always
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: majangbuku
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "${DATABASE_PORT}:5432"
 
 volumes:
   pgdata:
