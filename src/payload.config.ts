@@ -19,6 +19,11 @@ import { BorrowingRecords } from './collections/BorrowingRecords'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const sanitizeUrl = (url?: string) => {
+  if (!url) return 'postgresql://postgres:password@localhost:5432/majangbuku'
+  return url.replace(/^["']|["']$/g, '').replace('DATABASE_URL=', '')
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -51,7 +56,7 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      connectionString: sanitizeUrl(process.env.DATABASE_URL),
     },
   }),
   sharp,

@@ -22,13 +22,16 @@ jobs:
           port: ${{ secrets.SSH_PORT || 22 }}
           envs: DATABASE_URL,PAYLOAD_SECRET,NEXT_PUBLIC_SERVER_URL
           script: |
-            cd ~/majangbuku
+            cd /apps/majangbuku
             git pull origin main
             
             # Ensure .env exists with current secrets during build
-            echo "DATABASE_URL=$DATABASE_URL" > .env
-            echo "PAYLOAD_SECRET=$PAYLOAD_SECRET" >> .env
-            echo "NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL" >> .env
+            # We use a heredoc to avoid complex quoting issues
+            cat > .env << 'EOF'
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
+            NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000' }}
+            EOF
             
             pnpm install --frozen-lockfile
             pnpm generate:types
@@ -37,7 +40,3 @@ jobs:
             # pm2 restart majangbuku
             # If using Docker
             # docker compose up -d --build
-      env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
-        NEXT_PUBLIC_SERVER_URL: ${{ secrets.NEXT_PUBLIC_SERVER_URL }}
