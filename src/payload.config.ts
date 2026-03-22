@@ -20,13 +20,13 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const sanitizeUrl = (url?: string) => {
-  const fallback = 'postgresql://postgres:password@localhost:5432/majangbuku'
+  const fallback = 'postgresql://postgres:password@localhost:5435/majangbuku'
   let u = (url || '').trim()
   if (!u || u === 'undefined' || u === 'null') return fallback
-  
+
   // Remove possible quotes and prefixes
   u = u.replace(/^["']|["']$/g, '').replace('DATABASE_URL=', '').trim()
-  
+
   if (!u.includes('://')) {
     console.warn('DATABASE_URL is missing protocol, using fallback')
     return fallback

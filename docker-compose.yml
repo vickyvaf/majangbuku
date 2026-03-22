@@ -1,38 +1,29 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  payload:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      network: host
-      args:
-        NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL:-http://localhost:3001}
-        PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-        DATABASE_URL: postgresql://${DATABASE_USER:-postgres}:${DATABASE_PASSWORD:-password}@127.0.0.1:${DATABASE_PORT:-5435}/${DATABASE_NAME:-majangbuku}
+  app:
+    build: .
+    container_name: next_payload_app
+    restart: always
     ports:
-      - "${PORT:-3001}:3000"
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: postgresql://${DATABASE_USER:-postgres}:${DATABASE_PASSWORD:-password}@postgres:5432/${DATABASE_NAME:-majangbuku}
-      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-      NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
+      - "3001:3000" # Host:Container
     env_file:
       - .env
+    depends_on:
+      - postgres
 
   postgres:
+    image: postgres:15
+    container_name: postgres_db
     restart: always
-    image: postgres:15-alpine
     environment:
-      POSTGRES_USER: ${DATABASE_USER:-postgres}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
-      POSTGRES_DB: ${DATABASE_NAME:-majangbuku}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: majangbuku
     ports:
-      - "${DATABASE_PORT:-5435}:5432"
+      - "5435:5432" # Host 5435, container 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  pgdata:
-  node_modules:
+  postgres_data:

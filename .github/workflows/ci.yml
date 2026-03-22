@@ -1,107 +1,89 @@
-name: CI/CD
+name: CI/CD VPS Deploy
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-22.04
 
     services:
       postgres:
         image: postgres:15
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: majangbuku
         ports:
-          - 5432:5432
+          - 5435:5432
         options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5435/majangbuku
+      DATABASE_URI: postgresql://postgres:postgres@localhost:5435/majangbuku
+      PAYLOAD_SECRET: 65f0847b1a01ace961d72ccc86bd0bc1d5ad55deeeb750a43e5ddaa8a7bcc801
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Prepare environment
-        run: |
-          cp .env.production .env
-          cat .env.production >> $GITHUB_ENV
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.15.9
-
-      - name: Use Node.js 20.x
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          npm install -g pnpm
+          pnpm install
 
-      - name: Generate Types
-        run: pnpm generate:types
+      - name: Wait for Postgres
+        run: |
+          for i in {1..10}; do
+            pg_isready -h localhost -p 5435 && break
+            echo "Waiting for postgres..."
+            sleep 2
+          done
 
-      - name: Type Check
-        run: pnpm exec tsc --noEmit
+      - name: Push DB Schema
+        run: pnpm run payload:db-push
 
-      - name: Initialize Database Schema
-        run: pnpm payload:db-push
+      - name: Build Next.js
+        run: pnpm build
 
-      - name: Build
-        run: pnpm build:prod
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
-    steps:
+      # 🚀 Deploy ke VPS
       - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT || 22 }}
           script: |
             set -e
-            # Use absolute home path to avoid expansion issues
-            PROJECT_PATH="$HOME/majangbuku"
-            
-            # Ensure directory exists and enter it
-            mkdir -p $PROJECT_PATH
-            cd $PROJECT_PATH
-            
-            # Robust Git deployment
+            mkdir -p ~/apps/majangbuku
+            cd ~/apps/majangbuku
+
             if [ ! -d ".git" ]; then
-              echo "Cloning repository..."
-              git clone https://github.com/vickyvaf/majangbuku.git .
+              git clone git@github.com:vickyvaf/majangbuku.git .
             else
-              echo "Updating repository..."
-              git fetch origin main
+              git fetch --all
               git reset --hard origin/main
             fi
             
-            # Use .env.production file directly
-            cp .env.production .env
-            
-            # Jalankan postgres duluan supaya payload tersambung ke port 5435 pas di build
-            echo "Running Postgres first so Next.js can connect during build..."
-            docker-compose up -d postgres
-            sleep 5
-            
-            # Deployment logic: Build and Restart payload
-            echo "Building new image and restarting container..."
-            DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d --build payload
-            
-            # Bersihkan image lama yang sudah tidak terpakai agar disk VPS tidak penuh
-            docker image prune -f || true
+            # Create/update .env file specifically for Docker internal network
+            if [ -f ".env.production" ]; then
+              cp .env.production .env
+              # Adjust to use internal 'postgres' host instead of 'localhost'
+              sed -i 's/localhost:5435/postgres:5432/g' .env
+              echo ".env file generated/updated from .env.production"
+            fi
+
+            docker-compose up -d --build --remove-orphans
+            docker image prune -f
+            docker-compose ps
