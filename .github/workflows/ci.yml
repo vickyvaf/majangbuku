@@ -96,12 +96,12 @@ jobs:
             
             # Jalankan postgres duluan supaya payload tersambung ke port 5435 pas di build
             echo "Running Postgres first so Next.js can connect during build..."
-            docker compose up -d postgres
+            docker-compose up -d postgres
             sleep 5
             
             # Deployment logic: Build and Restart payload
             echo "Building new image and restarting container..."
-            DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose up -d --build payload
+            DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d --build payload
             
             # Bersihkan image lama yang sudah tidak terpakai agar disk VPS tidak penuh
             docker image prune -f || true
