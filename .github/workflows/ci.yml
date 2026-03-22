@@ -25,13 +25,11 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/majangbuku' }}
-      PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET || '65f0847b1a01ace961d72ccc86bd0bc1d5ad55deeeb750a43e5ddaa8a7bcc801' }}
-      NEXT_PUBLIC_SERVER_URL: ${{ secrets.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000' }}
-
     steps:
       - uses: actions/checkout@v4
+
+      - name: Prepare environment
+        run: cp .env.production .env
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -93,9 +91,14 @@ jobs:
             # Use .env.production file directly
             cp .env.production .env
             
-            # Deployment logic: Use docker-compose
-            PROJ_NAME="majangbuku"
-            echo "Using docker-compose with BuildKit"
-            # Bruteforce cleanup if down fails
-            (docker-compose down || docker ps -a -q --filter "name=${PROJ_NAME}" | xargs -r docker rm -f) || true
-            DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d --build
+            # Jalankan postgres duluan supaya payload tersambung ke port 5435 pas di build
+            echo "Running Postgres first so Next.js can connect during build..."
+            docker-compose up -d postgres
+            sleep 5
+            
+            # Deployment logic: Build and Restart payload
+            echo "Building new image and restarting container..."
+            DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d --build payload
+            
+            # Bersihkan image lama yang sudah tidak terpakai agar disk VPS tidak penuh
+            docker image prune -f || true
