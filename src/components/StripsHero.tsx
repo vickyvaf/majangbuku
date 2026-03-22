@@ -10,6 +10,9 @@ export const StripsHero: React.FC<StripsHeroProps> = ({ imageSrc }) => {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [wrapperWidth, setWrapperWidth] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
   const containerRef = useRef<HTMLDivElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
@@ -18,20 +21,32 @@ export const StripsHero: React.FC<StripsHeroProps> = ({ imageSrc }) => {
   const containerMaxWidth = 1000 // px
 
   useEffect(() => {
+    setIsMounted(true)
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
+    if (imageSrc) {
+      setIsLoaded(false)
+      const img = new Image()
+      img.onload = () => setIsLoaded(true)
+      img.src = imageSrc
+      if (img.complete) setIsLoaded(true)
+    }
+  }, [imageSrc])
+
+  useEffect(() => {
+    if (!isMounted || isMobile) return
+
     const handleScroll = () => {
       if (!containerRef.current) return
       const scrollY = window.scrollY
       const limit = 200
       const progress = Math.min(Math.max(scrollY / limit, 0), 1)
       setScrollProgress(progress)
-    }
-
-    // Handle Image Loading
-    if (imageSrc) {
-      setIsLoaded(false) // Reset when source changes
-      const img = new Image()
-      img.src = imageSrc
-      img.onload = () => setIsLoaded(true)
     }
 
     const resizeObserver = new ResizeObserver((entries) => {
@@ -47,13 +62,41 @@ export const StripsHero: React.FC<StripsHeroProps> = ({ imageSrc }) => {
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+    // Intentionally trigger initial compute
     handleScroll()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
       resizeObserver.disconnect()
     }
-  }, [imageSrc])
+  }, [isMounted, isMobile])
+
+  if (!isMounted) {
+    return (
+      <div className="hero-strips-container" style={{ minHeight: '60vh' }}></div>
+    )
+  }
+
+  if (isMobile) {
+    return (
+      <div className="hero-strips-container" style={{ height: 'auto', width: '100%', boxSizing: 'border-box', borderBottom: '1px solid #0000001a', paddingBottom: '2rem' }}>
+        <img
+          src={imageSrc}
+          alt="Hero Cover"
+          style={{
+            width: '100%',
+            height: 'auto',
+            display: 'block',
+            borderRadius: '8px',
+            opacity: isLoaded ? 1 : 0,
+            transition: 'opacity 0.6s ease-in-out',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+          }}
+          onLoad={() => setIsLoaded(true)}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className="hero-strips-container" ref={containerRef}>

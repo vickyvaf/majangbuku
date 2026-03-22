@@ -1,12 +1,11 @@
-import React from 'react'
-import { getPayload } from 'payload'
-import config from '@/payload.config'
-import { Event } from '@/payload-types'
-import './../styles.css'
-import { MapPin, Calendar } from 'lucide-react'
 import { Header } from '@/components/Header/Header'
 import { RevealRow } from '@/components/RevealRow'
 import { StripsHero } from '@/components/StripsHero'
+import { Event } from '@/payload-types'
+import config from '@/payload.config'
+import { Calendar, MapPin } from 'lucide-react'
+import { getPayload } from 'payload'
+import './../styles.css'
 
 export default async function EventsPage() {
   const payload = await getPayload({ config })
@@ -40,7 +39,7 @@ export default async function EventsPage() {
           }
         />
 
-        <div style={{ marginTop: '4rem' }}>
+        <div>
           {events.length === 0 ? (
             <div className="empty-state">
               <p>Belum ada kegiatan terbaru yang diunggah. Cek kembali nanti!</p>
