@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -55,3 +55,36 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            cd /apps/majangbuku
+            git pull origin main
+            
+            # Ensure .env exists with current secrets during build
+            # We use a heredoc to avoid complex quoting issues
+            cat > .env << 'EOF'
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}
+            NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000' }}
+            EOF
+            
+            pnpm install --frozen-lockfile
+            pnpm generate:types
+            pnpm build
+            # If using PM2
+            # pm2 restart majangbuku
+            # If using Docker
+            # docker compose up -d --build
