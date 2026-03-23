@@ -88,9 +88,19 @@ jobs:
               sed -i 's/localhost:5435/postgres:5432/g' .env
             fi
 
+            # Set higher timeout for Docker Compose
+            export COMPOSE_HTTP_TIMEOUT=200
+            export DOCKER_CLIENT_TIMEOUT=200
+
             # Pull latest code and update services
-            # No build needed for app due to volumes
-            docker-compose -p majangbuku up -d postgres app
+            docker-compose -p majangbuku up -d postgres
+
+            # Ensure postgres is ready
+            echo "Waiting for postgres to be ready..."
+            sleep 10
+
+            # Run app in detached mode but with a higher timeout
+            docker-compose -p majangbuku up -d app
 
             # Run migrations on VPS
             docker-compose -p majangbuku exec -T app pnpm run payload:migrate
