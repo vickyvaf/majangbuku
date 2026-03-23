@@ -1,13 +1,18 @@
-name: Build and Deploy
+name: Deploy Database
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'src/migrations/**'
+      - 'src/collections/**'
+      - 'src/payload.config.ts'
+      - '.github/workflows/ci.yml'
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  deploy-database:
+    name: Deploy Database
     runs-on: ubuntu-22.04
 
     services:
@@ -59,10 +64,7 @@ jobs:
       - name: Migrate & Seed Database
         run: pnpm run payload:migrate
 
-      - name: Build Next.js
-        run: pnpm run build
-
-      # 🚀 Deploy ke VPS
+      # 🚀 Deploy Database via Migration on VPS
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
         with:
@@ -71,7 +73,6 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             set -e
-            mkdir -p ~/apps/majangbuku
             cd ~/apps/majangbuku
 
             if [ ! -d ".git" ]; then
@@ -84,12 +85,11 @@ jobs:
             # Create/update .env file specifically for Docker internal network
             if [ -f ".env.production" ]; then
               cp .env.production .env
-              # Adjust to use internal 'postgres' host instead of 'localhost'
               sed -i 's/localhost:5435/postgres:5432/g' .env
-              echo ".env file generated/updated from .env.production"
             fi
 
-            docker-compose -p majangbuku up -d --build --remove-orphans
+            # Build and update the database and app services
+            docker-compose -p majangbuku up -d --build postgres app
 
             # Run migrations on VPS
             docker-compose -p majangbuku exec -T app pnpm run payload:migrate
