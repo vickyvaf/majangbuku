@@ -6,6 +6,7 @@ import config from '@payload-config'
 import { Bitter } from 'next/font/google'
 import { getPayload } from 'payload'
 import React from 'react'
+import NextTopLoader from 'nextjs-toploader'
 import './styles.css'
 
 const bitter = Bitter({
@@ -86,6 +87,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="id" className={bitter.variable}>
       <body>
+        <NextTopLoader
+          color="#f78750"
+          showSpinner={false}
+          shadow="0 0 10px #f78750,0 0 5px #f78750"
+        />
         <Background />
         <EventsSidebar events={events} socialLinks={socialLinks} />
         <Navbar />
