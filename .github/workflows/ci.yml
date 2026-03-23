@@ -88,8 +88,9 @@ jobs:
               sed -i 's/localhost:5435/postgres:5432/g' .env
             fi
 
-            # Build and update the database and app services
-            docker-compose -p majangbuku up -d --build postgres app
+            # Pull latest code and update services
+            # No build needed for app due to volumes
+            docker-compose -p majangbuku up -d postgres app
 
             # Run migrations on VPS
             docker-compose -p majangbuku exec -T app pnpm run payload:migrate

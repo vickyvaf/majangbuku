@@ -8,6 +8,10 @@ services:
       - '3001:3000' # Host:Container
     env_file:
       - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
     depends_on:
       - postgres
 
