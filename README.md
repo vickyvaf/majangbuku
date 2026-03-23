@@ -2,6 +2,9 @@
 
 This project is a content management system (CMS) based on Payload CMS, using **Supabase** (PostgreSQL) as its database.
 
+## Preview
+<img width="1418" height="796" alt="Screenshot 2026-03-24 at 00 18 27" src="https://github.com/user-attachments/assets/dac8313b-9aa3-46b9-9415-3afa16d5c3b4" />
+
 ## Requirements
 
 - [pnpm v9](https://pnpm.io/) (via Corepack)
