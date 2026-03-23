@@ -39,8 +39,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   })
 
   // Format events for component
-  const events = eventsDocs.map(doc => {
-    const eventImage = doc.image && typeof doc.image !== 'number' ? doc.image : null;
+  const events = eventsDocs.map((doc) => {
+    const eventImage = doc.image && typeof doc.image !== 'number' ? doc.image : null
+
+    // Ensure URL is relative to prevent Next.js upstream private IP error in development
+    let imageUrl = eventImage?.url || ''
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+
+    if (imageUrl.startsWith(serverUrl)) {
+      imageUrl = imageUrl.substring(serverUrl.length)
+    }
 
     return {
       id: String(doc.id),
@@ -48,10 +56,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       description: doc.description,
       date: doc.date,
       location: doc.location || undefined,
-      image: eventImage ? {
-        url: eventImage.url || '',
-        alt: eventImage.alt || doc.title,
-      } : undefined
+      image: eventImage
+        ? {
+            url: imageUrl,
+            alt: eventImage.alt || doc.title,
+          }
+        : undefined,
     }
   })
 
@@ -66,7 +76,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     },
   })
 
-  const socialLinks = socialDocs.map(doc => ({
+  const socialLinks = socialDocs.map((doc) => ({
     id: String(doc.id),
     name: doc.name,
     url: doc.url,
@@ -85,4 +95,3 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   )
 }
-

@@ -15,6 +15,7 @@ import { FaqPage } from './globals/FaqPage'
 import { BookCategories } from './collections/BookCategories'
 import { Books } from './collections/Books'
 import { BorrowingRecords } from './collections/BorrowingRecords'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -74,5 +75,19 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    s3Storage({
+      collections: {},
+      bucket: process.env.S3_BUCKET || '',
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+        },
+        region: process.env.S3_REGION || '',
+        endpoint: process.env.S3_ENDPOINT || '',
+        forcePathStyle: true, // Required for Supabase
+      },
+    }),
+  ],
 })

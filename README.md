@@ -33,9 +33,14 @@ The project is configured to use Supabase for its database.
     Copy the connection string from your Supabase project dashboard (Settings > Database > Connection string > URI). Use the **Transaction Mode** (Port 6543) if you use connection pooling, or **Session Mode** (Port 5432) for direct connections.
 
     ```env
-    # Supabase Connection (Example)
     DATABASE_URI=
     PAYLOAD_SECRET=
+    NEXT_PUBLIC_SERVER_URL=
+    S3_ENDPOINT=
+    S3_REGION=
+    S3_ACCESS_KEY_ID=
+    S3_SECRET_ACCESS_KEY=
+    S3_BUCKET=
     ```
 
 2.  **Install Dependencies:**
@@ -65,6 +70,12 @@ If you prefer to run a local PostgreSQL instance:
     ```env
     DATABASE_URI=
     PAYLOAD_SECRET=
+    NEXT_PUBLIC_SERVER_URL=
+    S3_ENDPOINT=
+    S3_REGION=
+    S3_ACCESS_KEY_ID=
+    S3_SECRET_ACCESS_KEY=
+    S3_BUCKET=
     ```
 2.  **Run Docker Compose:**
     ```bash
