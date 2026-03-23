@@ -26,7 +26,6 @@ jobs:
 
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5435/majangbuku
-      DATABASE_URI: postgresql://postgres:postgres@localhost:5435/majangbuku
       PAYLOAD_SECRET: 65f0847b1a01ace961d72ccc86bd0bc1d5ad55deeeb750a43e5ddaa8a7bcc801
 
     steps:
@@ -51,11 +50,16 @@ jobs:
             sleep 2
           done
 
-      - name: Push DB Schema
-        run: pnpm run payload:db-push
+      - name: Setup Payload (Import Map & Types)
+        run: |
+          pnpm run generate:importmap
+          pnpm run generate:types
+
+      - name: Migrate & Seed Database
+        run: pnpm run payload:migrate
 
       - name: Build Next.js
-        run: pnpm build
+        run: pnpm run build
 
       # 🚀 Deploy ke VPS
       - name: Deploy via SSH
@@ -75,7 +79,7 @@ jobs:
               git fetch --all
               git reset --hard origin/main
             fi
-            
+
             # Create/update .env file specifically for Docker internal network
             if [ -f ".env.production" ]; then
               cp .env.production .env
@@ -85,5 +89,9 @@ jobs:
             fi
 
             docker-compose up -d --build --remove-orphans
+
+            # Run migrations on VPS
+            docker-compose exec -T app pnpm run payload:migrate
+
             docker image prune -f
             docker-compose ps
