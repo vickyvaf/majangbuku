@@ -95,14 +95,15 @@ jobs:
             export COMPOSE_HTTP_TIMEOUT=200
             export DOCKER_CLIENT_TIMEOUT=200
 
-            # Pull latest code and update services
+            # Force remove and recreate to fix ContainerConfig error (common with old docker-compose)
+            docker-compose -p majangbuku rm -f -s app
             docker-compose -p majangbuku up -d postgres
 
             # Ensure postgres is ready
             echo "Waiting for postgres to be ready..."
             sleep 10
 
-            # Run app in detached mode but with a higher timeout
+            # Start app with a fresh container
             docker-compose -p majangbuku up -d app
 
             # Run migrations on VPS
