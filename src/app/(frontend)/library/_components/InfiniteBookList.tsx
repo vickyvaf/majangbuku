@@ -13,6 +13,7 @@ interface InfiniteBookListProps {
   availableOnly: boolean
   initialHasNextPage: boolean
   initialNextPage: number | null | undefined
+  whatsappNumber?: string
 }
 
 export const InfiniteBookList: React.FC<InfiniteBookListProps> = ({
@@ -23,6 +24,7 @@ export const InfiniteBookList: React.FC<InfiniteBookListProps> = ({
   availableOnly,
   initialHasNextPage,
   initialNextPage,
+  whatsappNumber,
 }) => {
   const [books, setBooks] = useState<Book[]>(initialBooks)
   const [hasNextPage, setHasNextPage] = useState(initialHasNextPage)
@@ -89,7 +91,7 @@ export const InfiniteBookList: React.FC<InfiniteBookListProps> = ({
     <>
       <div className="books-grid">
         {books.map((book, index) => (
-          <BookCard key={book.id} book={book} index={index} />
+          <BookCard key={book.id} book={book} index={index} whatsappNumber={whatsappNumber} />
         ))}
       </div>
 

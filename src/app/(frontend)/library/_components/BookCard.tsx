@@ -2,7 +2,17 @@ import React from 'react'
 import { Book } from '@/payload-types'
 import { ScrollReveal } from './ScrollReveal'
 
-export const BookCard = ({ book, index }: { book: Book; index: number }) => {
+export const BookCard = ({
+  book,
+  index,
+  whatsappNumber,
+}: {
+  book: Book
+  index: number
+  whatsappNumber?: string
+}) => {
+  const waNumber = (whatsappNumber || '6281234567890').replace(/[^0-9]/g, '')
+
   return (
     <ScrollReveal key={book.id} delay={(index % 3) * 100}>
       <div className="book-card">
@@ -36,7 +46,7 @@ export const BookCard = ({ book, index }: { book: Book; index: number }) => {
 
         {book.status === 'available' && (
           <a
-            href={`https://wa.me/6281234567890?text=Halo Majang Buku, saya ingin meminjam buku "${book.title} - ${book.author}"`}
+            href={`https://wa.me/${waNumber}?text=Halo Majang Buku, saya ingin meminjam buku "${book.title} - ${book.author}"`}
             target="_blank"
             rel="noopener noreferrer"
             className="borrow-button"

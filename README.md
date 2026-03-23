@@ -41,6 +41,7 @@ The project is configured to use Supabase for its database.
     S3_ACCESS_KEY_ID=
     S3_SECRET_ACCESS_KEY=
     S3_BUCKET=
+    WHATSAPP_NUMBER=
     ```
 
 2.  **Install Dependencies:**
@@ -76,6 +77,7 @@ If you prefer to run a local PostgreSQL instance:
     S3_ACCESS_KEY_ID=
     S3_SECRET_ACCESS_KEY=
     S3_BUCKET=
+    WHATSAPP_NUMBER=
     ```
 2.  **Run Docker Compose:**
     ```bash

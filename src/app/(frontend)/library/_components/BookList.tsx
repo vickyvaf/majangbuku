@@ -95,6 +95,8 @@ export async function BookList({
     limit: 12, // Load more on start
   })
 
+  const whatsappNumber = process.env.WHATSAPP_NUMBER || ''
+
   if (books.length === 0) {
     return (
       <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
@@ -112,6 +114,7 @@ export async function BookList({
       availableOnly={availableOnly}
       initialHasNextPage={hasNextPage}
       initialNextPage={nextPage}
+      whatsappNumber={whatsappNumber}
     />
   )
 }
