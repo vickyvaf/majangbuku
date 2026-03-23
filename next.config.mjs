@@ -11,6 +11,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'sjltryvtdubwdkkczftn.storage.supabase.co',
+      },
+      {
+        protocol: 'https',
         hostname: '**.netlify.app',
       },
       {
@@ -18,14 +22,6 @@ const nextConfig = {
         hostname: 'localhost',
       },
     ],
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/api/media/file/:path*',
-        destination: '/media/:path*',
-      },
-    ]
   },
 }
 

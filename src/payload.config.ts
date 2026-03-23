@@ -78,7 +78,11 @@ export default buildConfig({
   plugins: [
     s3Storage({
       collections: {
-        media: true,
+        media: {
+          generateFileURL: ({ filename }) => {
+            return `https://sjltryvtdubwdkkczftn.supabase.co/storage/v1/object/public/media/${filename}`
+          },
+        },
       },
       bucket: process.env.S3_BUCKET || '',
       config: {
