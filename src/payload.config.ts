@@ -39,7 +39,7 @@ const sanitizeUrl = (url?: string) => {
 }
 
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || process.env.URL || 'http://localhost:3000',
   admin: {
     user: Users.slug,
     importMap: {
@@ -77,7 +77,9 @@ export default buildConfig({
   sharp,
   plugins: [
     s3Storage({
-      collections: {},
+      collections: {
+        media: true,
+      },
       bucket: process.env.S3_BUCKET || '',
       config: {
         credentials: {
