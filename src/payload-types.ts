@@ -277,12 +277,16 @@ export interface Book {
   id: number;
   title: string;
   author: string;
-  coverImage: number | Media;
+  coverImage?: (number | null) | Media;
   categories?: (number | BookCategory)[] | null;
   isbn_sku?: string | null;
   owner_donator?: string | null;
   borrowCount?: number | null;
   status: 'available' | 'borrowed' | 'reference_only';
+  /**
+   * Pilih atau ketik sumber buku baru jika tidak ada di daftar
+   */
+  bookSource?: ('Rak' | 'Donasi') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -499,6 +503,7 @@ export interface BooksSelect<T extends boolean = true> {
   owner_donator?: T;
   borrowCount?: T;
   status?: T;
+  bookSource?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -563,8 +568,8 @@ export interface BiographyPage {
   id: number;
   title: string;
   subtitle?: string | null;
-  image: number | Media;
-  content: {
+  image?: (number | null) | Media;
+  content?: {
     root: {
       type: string;
       children: {
@@ -578,7 +583,7 @@ export interface BiographyPage {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -590,7 +595,7 @@ export interface EventsPage {
   id: number;
   title: string;
   subtitle?: string | null;
-  image: number | Media;
+  image?: (number | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

@@ -24,7 +24,7 @@ export const Books: CollectionConfig = {
       name: 'coverImage',
       type: 'upload',
       relationTo: 'media',
-      required: true,
+      required: false,
     },
     {
       name: 'categories',
@@ -64,6 +64,21 @@ export const Books: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
+    },
+    {
+      name: 'bookSource',
+      label: 'Source',
+      type: 'select',
+      required: false,
+      options: [
+        { label: 'Rak', value: 'Rak' },
+        { label: 'Donasi', value: 'Donasi' },
+      ],
+      admin: {
+        position: 'sidebar',
+        description: 'Pilih atau ketik sumber buku baru jika tidak ada di daftar',
+      },
+      hasMany: false,
     },
   ],
 }

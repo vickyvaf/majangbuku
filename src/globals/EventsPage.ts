@@ -22,7 +22,7 @@ export const EventsPage: GlobalConfig = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      required: true,
+      required: false,
     },
   ],
 }

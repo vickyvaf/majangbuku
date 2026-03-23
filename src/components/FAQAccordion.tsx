@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import type { Faq } from '@/payload-types'
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import { RichText } from '@/components/RichText'
 
 export const FAQAccordion: React.FC<{ faqs: Faq[] }> = ({ faqs }) => {
   return (
@@ -21,8 +21,8 @@ const FAQItem: React.FC<{ faq: Faq }> = ({ faq }) => {
 
   return (
     <div className={`faq-accordion-item ${isOpen ? 'active' : ''}`}>
-      <button 
-        className="faq-accordion-header" 
+      <button
+        className="faq-accordion-header"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
       >

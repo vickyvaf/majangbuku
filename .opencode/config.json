@@ -1,0 +1,14 @@
+{
+  "name": "majangbuku",
+  "description": "A Payload CMS project for book cataloging.",
+  "stack": ["Payload CMS", "PostgreSQL", "Next.js", "TypeScript"],
+  "rules": [
+    "rules/payload-cms.md",
+    "rules/frontend.md",
+    "rules/backend.md",
+    "rules/devops.md",
+    "rules/ui-ux.md"
+  ],
+  "context": ["../PRD.md", "../README.md"],
+  "plansDir": "plans"
+}

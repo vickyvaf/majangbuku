@@ -213,7 +213,8 @@
 .scroll-reveal {
   opacity: 0;
   transform: translateY(40px) scale(0.98);
-  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+  transition:
+    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
     transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
@@ -322,13 +323,21 @@
   font-weight: 500;
 }
 
+.book-card-meta {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
 .borrow-button {
   display: block;
   text-align: center;
   background: var(--text);
   color: white;
   padding: 0.8rem;
-  margin-top: 1rem;
+  margin-top: auto; /* Push the button to the bottom of the card */
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -378,6 +387,29 @@
   font-style: italic;
 }
 
+.loading-trigger {
+  grid-column: 1 / -1;
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.loading-spinner {
+  font-size: 0.9rem;
+  color: #888;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.end-of-list {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 0;
+  color: #aaa;
+  font-style: italic;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
 
 @media (max-width: 1200px) {
   .library-layout {
@@ -399,7 +431,7 @@
   .library-main {
     width: 100%;
   }
-  
+
   .toolbar-actions {
     display: none; /* Hide horizontal actions, move to bottom sheet */
   }
@@ -432,7 +464,7 @@
 
   /* keep 2 columns for tablet portrait */
   .books-grid {
-     gap: 2rem;
+    gap: 2rem;
   }
 }
 

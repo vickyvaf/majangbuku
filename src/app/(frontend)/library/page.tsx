@@ -38,7 +38,8 @@ export default async function LibraryPage({
           <header className="library-header">
             <h1 className="library-title">Perpustakaan</h1>
             <p className="library-subtitle">
-              Jelajahi koleksi komunitas kami yang terkurasi. Dialog antara warisan klasik dan pencarian modern.
+              Jelajahi koleksi komunitas kami yang terkurasi. Dialog antara warisan klasik dan
+              pencarian modern.
             </p>
           </header>
 
@@ -46,15 +47,11 @@ export default async function LibraryPage({
             <div className="sidebar-section">
               <h3 className="sidebar-title">Koleksi</h3>
               <nav className="sidebar-nav">
-                <CategoryLink slug="all" active={category === 'all'}>
+                <CategoryLink key="all" slug="all" active={category === 'all'}>
                   Semua Koleksi
                 </CategoryLink>
                 {categories.map((cat) => (
-                  <CategoryLink
-                    key={cat.id}
-                    slug={cat.slug}
-                    active={category === cat.slug}
-                  >
+                  <CategoryLink key={cat.id} slug={cat.slug} active={category === cat.slug}>
                     {cat.title}
                   </CategoryLink>
                 ))}
@@ -71,8 +68,16 @@ export default async function LibraryPage({
               currentCategory={category}
             />
 
-            <Suspense key={`${category}-${search}-${sort}-${availableOnly}`} fallback={<BookGridSkeleton />}>
-              <BookList category={category} search={search} sort={sort} availableOnly={availableOnly} />
+            <Suspense
+              key={`${category}-${search}-${sort}-${availableOnly}`}
+              fallback={<BookGridSkeleton />}
+            >
+              <BookList
+                category={category}
+                search={search}
+                sort={sort}
+                availableOnly={availableOnly}
+              />
             </Suspense>
           </main>
         </div>
