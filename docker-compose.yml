@@ -1,7 +1,8 @@
 services:
   app:
+    image: majangbuku
     build: .
-    container_name: next_payload_app
+    container_name: majangbuku
     restart: always
     ports:
       - '3001:3000' # Host:Container
@@ -12,7 +13,7 @@ services:
 
   postgres:
     image: postgres:15
-    container_name: postgres_db
+    container_name: majangbuku_db
     restart: always
     environment:
       POSTGRES_USER: postgres

@@ -1,4 +1,4 @@
-name: majangbuku
+name: Build and Deploy
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    name: majangbuku
+    name: Build and Deploy
     runs-on: ubuntu-22.04
 
     services:
@@ -89,10 +89,10 @@ jobs:
               echo ".env file generated/updated from .env.production"
             fi
 
-            docker-compose up -d --build --remove-orphans
+            docker-compose -p majangbuku up -d --build --remove-orphans
 
             # Run migrations on VPS
-            docker-compose exec -T app pnpm run payload:migrate
+            docker-compose -p majangbuku exec -T app pnpm run payload:migrate
 
             docker image prune -f
-            docker-compose ps
+            docker-compose -p majangbuku ps
