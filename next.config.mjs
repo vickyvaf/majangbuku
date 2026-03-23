@@ -7,6 +7,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'sjltryvtdubwdkkczftn.supabase.co',
+      },
+      {
+        protocol: 'https',
         hostname: '**.netlify.app',
       },
       {
