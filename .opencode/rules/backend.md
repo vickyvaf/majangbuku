@@ -13,7 +13,7 @@
 2. **Type Generation**: Run `pnpm generate:types` after schema changes.
 3. **Database Configuration**:
    - Use the `sanitizeUrl` function in `payload.config.ts`.
-   - Fallback DATABASE_URL: `postgresql://postgres:password@localhost:5435/majangbuku`.
+   - Fallback DATABASE_URI: `postgresql://postgres:password@localhost:5435/majangbuku`.
 4. **Transaction Safety**: Always pass `req` to nested operations in hooks.
 
 ## Collection & Global Management

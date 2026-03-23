@@ -11,7 +11,7 @@
 
 1. **Corepack**: Ensure `corepack enable` is run before `pnpm install`.
 2. **Environment Variables**:
-   - `DATABASE_URL`: `postgresql://postgres:password@localhost:5435/majangbuku`.
+   - `DATABASE_URI`: `postgresql://postgres:password@localhost:5435/majangbuku`.
    - `PAYLOAD_SECRET`: Ensure this is set.
    - `NEXT_PUBLIC_SERVER_URL`: `http://localhost:3000`.
 3. **Docker**:

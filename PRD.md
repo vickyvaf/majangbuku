@@ -148,9 +148,9 @@ sequenceDiagram
 - **CMS**: Payload CMS 3.0 (Headless).
 - **Package Manager**: pnpm v9 (v9.15.9) via Corepack.
 - **Styling**: CSS Modules & SCSS (for Admin customization).
-- **Database**: PostgreSQL with `@payloadcms/db-postgres`.
+- **Database**: PostgreSQL with `@payloadcms/db-postgres` (Supabase Managed).
 - **Testing**: Vitest (Integration) and Playwright (E2E).
-- **Deployment**: Vercel (Frontend) and PostgreSQL (Dockerized or Managed).
+- **Deployment**: Vercel (Frontend) and Supabase (Managed PostgreSQL).
 
 ## 8. Development Progress
 

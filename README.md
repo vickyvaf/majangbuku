@@ -1,11 +1,12 @@
 # Majang Buku - Payload CMS
 
-This project is a content management system (CMS) based on Payload CMS, using PostgreSQL as its database.
+This project is a content management system (CMS) based on Payload CMS, using **Supabase** (PostgreSQL) as its database.
 
 ## Requirements
 
 - [pnpm v9](https://pnpm.io/) (via Corepack)
-- [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
+- [Supabase Account](https://supabase.com/) (Managed Database)
+- [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/) (Optional for local development)
 
 ---
 
@@ -21,53 +22,57 @@ After that, the `pnpm` command will automatically use the version specified in `
 
 ---
 
-## 🚀 Quick Start (Docker Compose) - **Recommended**
+## 🚀 Quick Start (Supabase) - **Recommended**
 
-The easiest way to run this project along with its database is via Docker:
+The project is configured to use Supabase for its database.
+
+1.  **Configure `.env`:**
+    Copy the connection string from your Supabase project dashboard (Settings > Database > Connection string > URI). Use the **Transaction Mode** (Port 6543) if you use connection pooling, or **Session Mode** (Port 5432) for direct connections.
+
+    ```env
+    # Supabase Connection (Example)
+    DATABASE_URI=postgresql://postgres.xxxx:[YOUR-PASSWORD]@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true
+
+    PAYLOAD_SECRET=YOUR_SECRET_HERE
+    NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+    ```
+
+2.  **Install Dependencies:**
+
+    ```bash
+    pnpm install
+    ```
+
+3.  **Sync Database Schema:**
+
+    ```bash
+    pnpm payload:db-push
+    ```
+
+4.  **Run Development Server:**
+    ```bash
+    pnpm dev
+    ```
+
+---
+
+## 🛠️ Local Development (With Docker)
+
+If you prefer to run a local PostgreSQL instance:
 
 1.  **Configure `.env` for Docker:**
-    Make sure the variables in the `.env` file match the Docker internal database service. You can copy the content from `.env.example`:
     ```env
     DATABASE_USER=postgres
     DATABASE_PASSWORD=password
     DATABASE_NAME=majangbuku
     DATABASE_PORT=5435
-    DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DATABASE_PORT}/${DATABASE_NAME}
+    DATABASE_URI=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DATABASE_PORT}/${DATABASE_NAME}
     PAYLOAD_SECRET=YOUR_SECRET_HERE
     NEXT_PUBLIC_SERVER_URL=http://localhost:3000
     ```
 2.  **Run Docker Compose:**
     ```bash
-    docker compose up -d --build
-    ```
-3.  **Access Application:**
-    - **Website:** [http://localhost:3000](http://localhost:3000)
-    - **Admin Panel:** [http://localhost:3000/admin](http://localhost:3000/admin)
-
----
-
-## 🛠️ Local Development (Without Docker)
-
-If you wish to run the application directly on your local machine (requires local PostgreSQL):
-
-1.  **Install Dependencies:**
-    ```bash
-    pnpm install
-    ```
-2.  **Configure `.env`:**
-    Set the database credentials in your `.env` file:
-    ```env
-    DATABASE_USER=your-user
-    DATABASE_PASSWORD=your-password
-    DATABASE_NAME=majangbuku
-    DATABASE_PORT=5432 # Default PostgreSQL port
-    DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DATABASE_PORT}/${DATABASE_NAME}
-    PAYLOAD_SECRET=your-secret
-    NEXT_PUBLIC_SERVER_URL=http://localhost:3000
-    ```
-3.  **Run Development Server:**
-    ```bash
-    pnpm dev
+    docker compose up -d
     ```
 
 ---

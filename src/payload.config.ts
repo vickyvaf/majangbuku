@@ -20,18 +20,18 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const sanitizeUrl = (url?: string) => {
-  const fallback = 'postgresql://postgres:postgres@localhost:5435/majangbuku'
+  const fallback = ''
   let u = (url || '').trim()
   if (!u || u === 'undefined' || u === 'null') return fallback
 
   // Remove possible quotes and prefixes
   u = u
     .replace(/^["']|["']$/g, '')
-    .replace('DATABASE_URL=', '')
+    .replace('DATABASE_URI=', '')
     .trim()
 
   if (!u.includes('://')) {
-    console.warn('DATABASE_URL is missing protocol, using fallback')
+    console.warn('DATABASE_URI is missing protocol, using fallback')
     return fallback
   }
   return u
@@ -69,7 +69,7 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: sanitizeUrl(process.env.DATABASE_URL),
+      connectionString: sanitizeUrl(process.env.DATABASE_URI),
     },
   }),
   sharp,
