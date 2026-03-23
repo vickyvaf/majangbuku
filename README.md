@@ -31,10 +31,8 @@ The project is configured to use Supabase for its database.
 
     ```env
     # Supabase Connection (Example)
-    DATABASE_URI=postgresql://postgres.xxxx:[YOUR-PASSWORD]@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true
-
-    PAYLOAD_SECRET=YOUR_SECRET_HERE
-    NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+    DATABASE_URI=
+    PAYLOAD_SECRET=
     ```
 
 2.  **Install Dependencies:**
@@ -62,13 +60,8 @@ If you prefer to run a local PostgreSQL instance:
 
 1.  **Configure `.env` for Docker:**
     ```env
-    DATABASE_USER=postgres
-    DATABASE_PASSWORD=password
-    DATABASE_NAME=majangbuku
-    DATABASE_PORT=5435
-    DATABASE_URI=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DATABASE_PORT}/${DATABASE_NAME}
-    PAYLOAD_SECRET=YOUR_SECRET_HERE
-    NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+    DATABASE_URI=
+    PAYLOAD_SECRET=
     ```
 2.  **Run Docker Compose:**
     ```bash
