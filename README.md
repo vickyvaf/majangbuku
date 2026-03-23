@@ -3,16 +3,20 @@
 This project is a content management system (CMS) based on Payload CMS, using PostgreSQL as its database.
 
 ## Requirements
+
 - [pnpm v9](https://pnpm.io/) (via Corepack)
 - [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
 
 ---
 
 ## 🛠️ Setup (Corepack)
+
 This project uses Corepack to define a consistent version of pnpm (v9.15.9). Make sure Corepack is active:
+
 ```bash
 corepack enable
 ```
+
 After that, the `pnpm` command will automatically use the version specified in `package.json`.
 
 ---
@@ -22,10 +26,15 @@ After that, the `pnpm` command will automatically use the version specified in `
 The easiest way to run this project along with its database is via Docker:
 
 1.  **Configure `.env` for Docker:**
-    Make sure `DATABASE_URL` in the `.env` file points to the Docker internal database service:
+    Make sure the variables in the `.env` file match the Docker internal database service. You can copy the content from `.env.example`:
     ```env
-    DATABASE_URL=replace-with-your-database-url
-    PAYLOAD_SECRET=replace-with-your-secret
+    DATABASE_USER=postgres
+    DATABASE_PASSWORD=password
+    DATABASE_NAME=majangbuku
+    DATABASE_PORT=5435
+    DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DATABASE_PORT}/${DATABASE_NAME}
+    PAYLOAD_SECRET=YOUR_SECRET_HERE
+    NEXT_PUBLIC_SERVER_URL=http://localhost:3000
     ```
 2.  **Run Docker Compose:**
     ```bash
@@ -46,9 +55,15 @@ If you wish to run the application directly on your local machine (requires loca
     pnpm install
     ```
 2.  **Configure `.env`:**
-    Change `DATABASE_URL` to your local PostgreSQL database:
+    Set the database credentials in your `.env` file:
     ```env
-    DATABASE_URL=replace-with-your-database-url
+    DATABASE_USER=your-user
+    DATABASE_PASSWORD=your-password
+    DATABASE_NAME=majangbuku
+    DATABASE_PORT=5432 # Default PostgreSQL port
+    DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DATABASE_PORT}/${DATABASE_NAME}
+    PAYLOAD_SECRET=your-secret
+    NEXT_PUBLIC_SERVER_URL=http://localhost:3000
     ```
 3.  **Run Development Server:**
     ```bash
@@ -71,9 +86,25 @@ If you wish to run the application directly on your local machine (requires loca
   ```bash
   pnpm generate:types
   ```
+- **Generate Import Map:**
+  ```bash
+  pnpm generate:importmap
+  ```
+- **Push Database Schema:**
+  ```bash
+  pnpm payload:db-push
+  ```
+- **Run Development Server (Clean):**
+  ```bash
+  pnpm devsafe
+  ```
 - **Build Project:**
   ```bash
   pnpm build
+  ```
+- **Run Tests:**
+  ```bash
+  pnpm test
   ```
 
 ---
@@ -86,4 +117,5 @@ If you wish to run the application directly on your local machine (requires loca
 - `public/`: Static files such as images, logos, and favicons.
 
 ## ⚖️ License
+
 This project is private. Any use must have the permission of the owner.
