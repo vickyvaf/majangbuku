@@ -9,6 +9,9 @@ on:
       - 'src/collections/**'
       - 'src/payload.config.ts'
       - '.github/workflows/ci.yml'
+      - 'docker-compose.yml'
+      - 'Dockerfile'
+      - 'package.json'
 
 jobs:
   deploy-database:
