@@ -17,7 +17,6 @@ biographySeed = {
   ],
 }
 
-
 eventsSeed = [
   {
     title: `Piknik Buku #1 — Lapak Baca di Alun-alun Lumajang`,
