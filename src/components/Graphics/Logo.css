@@ -1,0 +1,6 @@
+.custom-logo img {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
