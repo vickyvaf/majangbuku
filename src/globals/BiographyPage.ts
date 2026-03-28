@@ -24,6 +24,14 @@ export const BiographyPage: GlobalConfig = {
       required: false,
     },
     {
+      name: 'imageUrl',
+      label: 'Image URL',
+      type: 'text',
+      admin: {
+        description: 'Jika gambar tidak ada, gunakan URL gambar dari luar (opsional).',
+      },
+    },
+    {
       name: 'content',
       type: 'richText',
       required: false,

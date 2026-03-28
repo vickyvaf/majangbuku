@@ -206,6 +206,10 @@ export interface Event {
   date: string;
   location?: string | null;
   image?: (number | null) | Media;
+  /**
+   * Jika gambar tidak ada, gunakan URL gambar dari luar (opsional).
+   */
+  imageUrl?: string | null;
   status?: ('upcoming' | 'registration_open' | 'completed' | 'cancelled') | null;
   updatedAt: string;
   createdAt: string;
@@ -457,6 +461,7 @@ export interface EventsSelect<T extends boolean = true> {
   date?: T;
   location?: T;
   image?: T;
+  imageUrl?: T;
   status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -576,6 +581,10 @@ export interface BiographyPage {
   title: string;
   subtitle?: string | null;
   image?: (number | null) | Media;
+  /**
+   * Jika gambar tidak ada, gunakan URL gambar dari luar (opsional).
+   */
+  imageUrl?: string | null;
   content?: {
     root: {
       type: string;
@@ -603,6 +612,10 @@ export interface EventsPage {
   title: string;
   subtitle?: string | null;
   image?: (number | null) | Media;
+  /**
+   * Jika gambar tidak ada, gunakan URL gambar dari luar (opsional).
+   */
+  imageUrl?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -614,6 +627,11 @@ export interface FaqPage {
   id: number;
   title: string;
   subtitle?: string | null;
+  image?: (number | null) | Media;
+  /**
+   * Jika gambar tidak ada, gunakan URL gambar dari luar (opsional).
+   */
+  imageUrl?: string | null;
   /**
    * Pilih dan urutkan FAQ yang ingin ditampilkan (drag and drop di sini untuk mengubah urutan)
    */
@@ -629,6 +647,7 @@ export interface BiographyPageSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   image?: T;
+  imageUrl?: T;
   content?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -642,6 +661,7 @@ export interface EventsPageSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   image?: T;
+  imageUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -653,6 +673,8 @@ export interface EventsPageSelect<T extends boolean = true> {
 export interface FaqPageSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  image?: T;
+  imageUrl?: T;
   faqs?: T;
   updatedAt?: T;
   createdAt?: T;

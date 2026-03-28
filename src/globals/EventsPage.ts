@@ -24,5 +24,13 @@ export const EventsPage: GlobalConfig = {
       relationTo: 'media',
       required: false,
     },
+    {
+      name: 'imageUrl',
+      label: 'Image URL',
+      type: 'text',
+      admin: {
+        description: 'Jika gambar tidak ada, gunakan URL gambar dari luar (opsional).',
+      },
+    },
   ],
 }

@@ -19,6 +19,20 @@ export const FaqPage: GlobalConfig = {
       defaultValue: 'Find your answers for the most asked questions',
     },
     {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+    },
+    {
+      name: 'imageUrl',
+      label: 'Image URL',
+      type: 'text',
+      admin: {
+        description: 'Jika gambar tidak ada, gunakan URL gambar dari luar (opsional).',
+      },
+    },
+    {
       name: 'faqs',
       type: 'relationship',
       relationTo: 'faq',

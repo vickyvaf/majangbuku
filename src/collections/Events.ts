@@ -41,6 +41,14 @@ export const Events: CollectionConfig = {
       relationTo: 'media',
     },
     {
+      name: 'imageUrl',
+      label: 'Image URL',
+      type: 'text',
+      admin: {
+        description: 'Jika gambar tidak ada, gunakan URL gambar dari luar (opsional).',
+      },
+    },
+    {
       name: 'status',
       type: 'select',
       options: [

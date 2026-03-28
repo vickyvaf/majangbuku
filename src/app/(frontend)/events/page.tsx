@@ -33,9 +33,10 @@ export default async function EventsPage() {
         {/* Dynamic Image Merge Effect */}
         <StripsHero
           imageSrc={
-            eventsPageData.image && typeof eventsPageData.image === 'object'
+            eventsPageData.imageUrl ||
+            (eventsPageData.image && typeof eventsPageData.image === 'object'
               ? eventsPageData.image.url || ''
-              : ''
+              : '')
           }
         />
 
@@ -61,10 +62,15 @@ export default async function EventsPage() {
                   return (
                     <RevealRow key={event.id} className="event-table-row" delay={Math.min(index * 50, 500)}>
                       <div className="col-event">
-                        {event.image && typeof event.image !== 'number' && (
+                        {(event.imageUrl || (event.image && typeof event.image !== 'number')) && (
                           <div className="event-row-thumb-wrapper">
                             <img
-                              src={event.image.url || ''}
+                              src={
+                                event.imageUrl ||
+                                (event.image && typeof event.image !== 'number'
+                                  ? event.image.url || ''
+                                  : '')
+                              }
                               alt={event.title}
                               className="event-row-thumb"
                             />

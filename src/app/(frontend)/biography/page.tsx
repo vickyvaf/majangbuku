@@ -27,7 +27,8 @@ export default async function BiographyPage() {
         {/* Dynamic Image Merge Effect */}
         <StripsHero
           imageSrc={
-            biography.image && typeof biography.image === 'object' ? biography.image.url || '' : ''
+            biography.imageUrl ||
+            (biography.image && typeof biography.image === 'object' ? biography.image.url || '' : '')
           }
         />
 
