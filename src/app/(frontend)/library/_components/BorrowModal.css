@@ -53,13 +53,6 @@
 
 /* Desktop Styles */
 @media (min-width: 768px) {
-  .borrow-modal-overlay {
-    align-items: flex-start;
-    /* Important for scrolling */
-    padding: 3rem 0;
-    /* Extra space at top and bottom */
-  }
-
   .borrow-modal-container {
     bottom: auto;
     top: 50%;
@@ -76,8 +69,9 @@
   .borrow-modal-container.open {
     transform: translate(-50%, -50%);
     opacity: 1;
-    max-height: none;
-    height: auto;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -136,21 +130,35 @@
 
 @media (min-width: 768px) {
   .borrow-modal-content {
-    overflow-y: visible;
-    flex: initial;
-    padding-right: 0;
-    margin-right: 0;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 0.5rem;
+    margin-right: -0.5rem;
   }
 }
 
-/* Hide scrollbar but keep functionality for cleaner look */
+/* Scrollbar Styles */
 .borrow-modal-content::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
+}
+
+.borrow-modal-content::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .borrow-modal-content::-webkit-scrollbar-thumb {
-  background: #e0e0e0;
+  background: #ccc;
   border-radius: 10px;
+}
+
+.borrow-modal-content::-webkit-scrollbar-thumb:hover {
+  background: #b0b0b0;
+}
+
+/* Firefox support */
+.borrow-modal-content {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
 }
 
 /* Book Info Card */
