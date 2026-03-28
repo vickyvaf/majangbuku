@@ -44,7 +44,6 @@ The following environment variables are required:
 - `S3_ACCESS_KEY_ID`: Supabase Storage access key ID.
 - `S3_SECRET_ACCESS_KEY`: Supabase Storage secret access key.
 - `S3_BUCKET`: Supabase Storage bucket name.
-- `WHATSAPP_NUMBER`: Whatsapp number to contact.
 
 See `.env.example` for an example configuration.
 

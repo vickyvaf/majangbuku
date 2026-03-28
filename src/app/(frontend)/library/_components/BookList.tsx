@@ -99,7 +99,7 @@ export async function BookList({
     slug: 'site-settings',
   })
 
-  const whatsappNumber = siteSettings.whatsappNumber || process.env.WHATSAPP_NUMBER || ''
+  const whatsappNumber = siteSettings?.whatsappNumber || ''
 
   if (books.length === 0) {
     return (
