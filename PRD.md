@@ -21,11 +21,14 @@
 
 ### 4.1 Home
 
-- **Hero Section**: A high-impact carousel inspired by `alanmenken.com`.
+- **Hero Section**: A high-impact carousel inspired by `alanmenken.com`. Managed via `HomePage` global.
 - **Carousel Design**:
   - Vertical strips (strips horizontally aligned).
   - **Proposed Strips**: _Book Picnic_, _5 AM Club_, _Silent Reading_, _LCW (Literacy Camp & Workshop)_.
 - **Call to Action**: Links to join the community or view events.
+- **CMS Fields (HomePage Global)**:
+  - **Hero Strips** (Array): Title, Subtitle, Description, Image/URL.
+  - **Default Text**: Fallback title, subtitle, and description.
 
 ### 4.2 Biography
 
@@ -50,7 +53,8 @@
 
 ### 4.5 Social Media
 
-- **Fields Expected in CMS**:
+- **Collection Configuration**: Managed via `SocialMedia` collection in Payload CMS.
+- **Fields**:
   - **Name** (Text): Platform name (e.g., Instagram).
   - **URL** (Text): Link to the profile.
   - **Order** (Number): Display order in the sidebar.
@@ -88,6 +92,14 @@
     - `Borrowed`
     - `Reference Only` (Not for borrowing)
 - **Borrowing Records**: Internal collection to track who borrowed what and when.
+
+### 4.7 Site Settings (Global)
+
+- **Site-wide Branding**: Managed via `SiteSettings` global.
+- **Fields**:
+  - **Main Logo** (Upload): Primary branding.
+  - **Secondary Logo** (Upload): Alternative logo for different backgrounds.
+  - **WhatsApp Number** (Text): Admin contact for book borrowing and inquiries.
 
 ## 5. Design Requirements
 
@@ -146,24 +158,24 @@ sequenceDiagram
 
 ## 7. Technical Stack
 
-- **Framework**: Next.js 16 (App Router).
-- **CMS**: Payload CMS 3.0 (Headless).
+- **Framework**: Next.js 16.2 (App Router).
+- **CMS**: Payload CMS 3.79 (Headless).
 - **Package Manager**: pnpm v9 (v9.15.9) via Corepack.
-- **Styling**: CSS Modules & SCSS (for Admin customization).
+- **Styling**: Vanilla CSS with CSS Modules & SCSS (for Admin customization).
 - **Database**: PostgreSQL with `@payloadcms/db-postgres` (Supabase Managed).
 - **Testing**: Vitest (Integration) and Playwright (E2E).
 - **Deployment**: Vercel (Frontend) and Supabase (Managed PostgreSQL).
 
 ## 8. Development Progress
 
-- [x] Project Scaffolding (Next.js + Payload 3.0)
+- [x] Project Scaffolding (Next.js 16 + Payload 3.79)
 - [x] Collection Schemas (Users, Media, Events, FAQ, SocialMedia, Books, BookCategories, BorrowingRecords)
-- [x] Global Schemas (BiographyPage, EventsPage, FaqPage)
+- [x] Global Schemas (HomePage, BiographyPage, EventsPage, FaqPage, SiteSettings)
 - [x] Custom Admin UI (Logo, Icons)
 - [x] Automated Borrowing Logic (Hooks to update book status and borrow counts)
 - [x] Basic Frontend Structure (Layout, Navbar, BottomBar)
 - [x] Interactive Strips Hero Component
-- [x] Library Page (Search, Sort, Filter)
+- [x] Library Page (Search, Sort, Filter, Borrow Modal)
 - [x] Integration & E2E Tests
 
 ## 9. Success Metrics

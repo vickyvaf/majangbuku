@@ -6,8 +6,8 @@ This document outlines the technical specifications for the Majang Buku communit
 
 ## 2. Technical Stack
 
-- **Framework**: Next.js 16 (App Router)
-- **CMS**: Payload CMS 3.0 (Headless)
+- **Framework**: Next.js 16.2.0 (App Router)
+- **CMS**: Payload CMS 3.79.1 (Headless)
 - **Package Manager**: pnpm v9 (v9.15.9) via Corepack
 - **Styling**: CSS Modules & SCSS (for Admin customization)
 - **Database**: PostgreSQL with `@payloadcms/db-postgres` (Supabase Managed)
@@ -28,7 +28,7 @@ This document outlines the technical specifications for the Majang Buku communit
 ## 4. Payload CMS Configuration
 
 - **Collections**: Users, Media, Events, FAQ, SocialMedia, Books, BookCategories, BorrowingRecords
-- **Globals**: BiographyPage, EventsPage, FaqPage
+- **Globals**: HomePage, BiographyPage, EventsPage, FaqPage, SiteSettings
 - **Editor**: Lexical Editor
 - **Typescript**: Types are generated using `pnpm generate:types` and outputted to `src/payload-types.ts`.
 

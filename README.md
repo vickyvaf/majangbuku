@@ -123,8 +123,8 @@ If you prefer to run a local PostgreSQL instance:
 
 ## 🏗️ Project Structure
 
-- `src/collections/`: Configuration for data collections (Users, Media, Events, etc).
-- `src/globals/`: Configuration for global data (Biography, Settings, etc).
+- `src/collections/`: Configuration for data collections (Users, Media, Events, FAQ, SocialMedia, Books, BookCategories, BorrowingRecords).
+- `src/globals/`: Configuration for global data (Biography, Events, FAQ, HomePage, SiteSettings).
 - `src/app/`: Next.js application folder (contains frontend and admin routes).
 - `public/`: Static files such as images, logos, and favicons.
 
