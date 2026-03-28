@@ -277,7 +277,12 @@ export interface Book {
   id: number;
   title: string;
   author: string;
+  description?: string | null;
   coverImage?: (number | null) | Media;
+  /**
+   * Jika cover image tidak ada, gunakan URL gambar dari luar (opsional).
+   */
+  coverImageUrl?: string | null;
   categories?: (number | BookCategory)[] | null;
   isbn_sku?: string | null;
   owner_donator?: string | null;
@@ -497,7 +502,9 @@ export interface BookCategoriesSelect<T extends boolean = true> {
 export interface BooksSelect<T extends boolean = true> {
   title?: T;
   author?: T;
+  description?: T;
   coverImage?: T;
+  coverImageUrl?: T;
   categories?: T;
   isbn_sku?: T;
   owner_donator?: T;

@@ -21,10 +21,24 @@ export const Books: CollectionConfig = {
       required: true,
     },
     {
+      name: 'description',
+      type: 'text',
+      required: false,
+    },
+    {
       name: 'coverImage',
       type: 'upload',
       relationTo: 'media',
       required: false,
+    },
+    {
+      name: 'coverImageUrl',
+      label: 'Cover Image URL',
+      type: 'text',
+      required: false,
+      admin: {
+        description: 'Jika cover image tidak ada, gunakan URL gambar dari luar (opsional).',
+      },
     },
     {
       name: 'categories',

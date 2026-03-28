@@ -1,4 +1,3 @@
-import React from 'react'
 import { Book } from '@/payload-types'
 import { ScrollReveal } from './ScrollReveal'
 
@@ -17,7 +16,9 @@ export const BookCard = ({
     <ScrollReveal key={book.id} delay={(index % 3) * 100}>
       <div className="book-card">
         <div className="book-cover-wrapper">
-          {book.coverImage && typeof book.coverImage !== 'number' ? (
+          {book.coverImageUrl ? (
+            <img src={book.coverImageUrl} alt={book.title} className="book-cover" />
+          ) : book.coverImage && typeof book.coverImage !== 'number' ? (
             <img src={book.coverImage.url || ''} alt={book.title} className="book-cover" />
           ) : (
             <div className="book-cover loading-skeleton" />
@@ -39,10 +40,10 @@ export const BookCard = ({
         </div>
         <h3 className="book-title">{book.title}</h3>
         <div className="book-card-meta">
-          <span className="meta-label">ISBN-13</span>
-          <br />
           <span className="meta-value">{book.isbn_sku || 'N/A'}</span>
         </div>
+        {book.description && <div className="book-description">{book.description}</div>}
+
 
         {book.status === 'available' && (
           <a

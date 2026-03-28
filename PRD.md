@@ -76,7 +76,9 @@
   - **Books**:
     - **Title** (Text, Required)
     - **Author** (Text, Required)
+    - **Description** (Text, Optional)
     - **Cover Image** (Upload: Media)
+    - **Cover Image URL** (Text, Optional): For external image hosting to save S3 storage.
     - **Categories** (Relationship to `BookCategories`, hasMany): To enable dynamic filters.
     - **ISBN/SKU** (Text, Optional)
     - **Owner/Donator** (Text, Optional): To acknowledge who contributed the book.

@@ -301,6 +301,19 @@
   margin-bottom: 1rem;
 }
 
+.book-description {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .book-meta {
   display: flex;
   justify-content: space-between;
