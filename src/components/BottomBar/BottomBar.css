@@ -12,7 +12,7 @@
     background-color: var(--bg);
     border-top: 1px solid var(--border);
     box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.05);
-    z-index: 1000;
+    z-index: 1000000 !important;
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 

@@ -16,6 +16,7 @@
 .borrow-modal-overlay.open {
   opacity: 1;
   visibility: visible;
+
 }
 
 .borrow-modal-container {
@@ -47,6 +48,7 @@
   transform: translateY(0);
   visibility: visible;
   pointer-events: auto;
+  z-index: 99999999999999 !important;
 }
 
 /* Desktop Styles */

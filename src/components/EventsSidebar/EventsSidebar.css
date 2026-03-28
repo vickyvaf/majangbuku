@@ -34,6 +34,7 @@ body.nav-open .events-trigger-btn {
   position: fixed;
   top: 0;
   left: -400px;
+  z-index: 999999999 !important;
   /* Hidden by default */
   width: 400px;
   top: 0;
@@ -233,8 +234,8 @@ body.nav-open .events-trigger-btn {
 /* Mobile responsive */
 @media (max-width: 768px) {
   .events-trigger-btn {
-    top: 2.5rem;
-    left: 2.5rem;
+    top: 1rem;
+    left: 1rem;
   }
 
   .events-sidebar {
