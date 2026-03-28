@@ -231,10 +231,6 @@
   /* Ensure card takes full height of grid row */
 }
 
-.book-card:hover {
-  cursor: pointer;
-}
-
 .book-cover-wrapper {
   position: relative;
   aspect-ratio: 2/3;
@@ -350,7 +346,8 @@
   background: var(--text);
   color: white;
   padding: 0.8rem;
-  margin-top: auto; /* Push the button to the bottom of the card */
+  margin-top: auto;
+  /* Push the button to the bottom of the card */
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -361,6 +358,7 @@
 
 .borrow-button:hover {
   background: #333;
+  cursor: pointer;
 }
 
 .recent-borrowers {
@@ -437,7 +435,8 @@
   }
 
   .library-sidebar {
-    display: none; /* Hide sidebar on tablet/mobile, use bottom sheet */
+    display: none;
+    /* Hide sidebar on tablet/mobile, use bottom sheet */
   }
 
   .library-header,
@@ -446,11 +445,13 @@
   }
 
   .toolbar-actions {
-    display: none; /* Hide horizontal actions, move to bottom sheet */
+    display: none;
+    /* Hide horizontal actions, move to bottom sheet */
   }
 
   .mobile-filter-btn {
-    display: flex; /* Show filter button on tablet/mobile */
+    display: flex;
+    /* Show filter button on tablet/mobile */
   }
 }
 
