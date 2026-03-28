@@ -89,6 +89,12 @@ body.nav-open .events-trigger-btn {
   /* Optional: visual separator */
 }
 
+@media (max-width: 768px) {
+  .sidebar-header {
+    padding: 1.5rem;
+  }
+}
+
 .sidebar-close-btn {
   background: none;
   border: none;
@@ -113,6 +119,12 @@ body.nav-open .events-trigger-btn {
   scrollbar-width: none;
   /* Firefox */
   margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .sidebar-content {
+    padding: 1.5rem;
+  }
 }
 
 .sidebar-content::-webkit-scrollbar {
@@ -200,6 +212,12 @@ body.nav-open .events-trigger-btn {
   /* Ensure it covers anything underneath */
 }
 
+@media (max-width: 768px) {
+  .sidebar-footer {
+    padding: 1.5rem;
+  }
+}
+
 .sidebar-socials {
   display: flex;
   flex-direction: column;
@@ -245,5 +263,6 @@ body.nav-open .events-trigger-btn {
 
   .events-sidebar.open {
     transform: translateX(100vw);
+    padding: 0;
   }
 }
