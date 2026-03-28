@@ -5,6 +5,9 @@ export const BiographyPage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  admin: {
+    group: 'Pages',
+  },
   fields: [
     {
       name: 'title',

@@ -100,16 +100,16 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    'home-page': HomePage;
     'biography-page': BiographyPage;
     'events-page': EventsPage;
     'faq-page': FaqPage;
-    'home-page': HomePage;
   };
   globalsSelect: {
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'biography-page': BiographyPageSelect<false> | BiographyPageSelect<true>;
     'events-page': EventsPageSelect<false> | EventsPageSelect<true>;
     'faq-page': FaqPageSelect<false> | FaqPageSelect<true>;
-    'home-page': HomePageSelect<false> | HomePageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -576,6 +576,31 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page".
+ */
+export interface HomePage {
+  id: number;
+  defaultSubtitle: string;
+  defaultTitle: string;
+  defaultDescription: string;
+  strips?:
+    | {
+        title: string;
+        subtitle: string;
+        description: string;
+        image?: (number | null) | Media;
+        /**
+         * If no image is uploaded, use this external URL.
+         */
+        imageUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "biography-page".
  */
 export interface BiographyPage {
@@ -643,28 +668,25 @@ export interface FaqPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-page".
+ * via the `definition` "home-page_select".
  */
-export interface HomePage {
-  id: number;
-  defaultSubtitle: string;
-  defaultTitle: string;
-  defaultDescription: string;
+export interface HomePageSelect<T extends boolean = true> {
+  defaultSubtitle?: T;
+  defaultTitle?: T;
+  defaultDescription?: T;
   strips?:
+    | T
     | {
-        title: string;
-        subtitle: string;
-        description: string;
-        image?: (number | null) | Media;
-        /**
-         * If no image is uploaded, use this external URL.
-         */
-        imageUrl?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        image?: T;
+        imageUrl?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -703,28 +725,6 @@ export interface FaqPageSelect<T extends boolean = true> {
   image?: T;
   imageUrl?: T;
   faqs?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-page_select".
- */
-export interface HomePageSelect<T extends boolean = true> {
-  defaultSubtitle?: T;
-  defaultTitle?: T;
-  defaultDescription?: T;
-  strips?:
-    | T
-    | {
-        title?: T;
-        subtitle?: T;
-        description?: T;
-        image?: T;
-        imageUrl?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

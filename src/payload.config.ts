@@ -9,10 +9,10 @@ import { Media } from './collections/Media'
 import { Events } from './collections/Events'
 import { FAQ } from './collections/FAQ'
 import { SocialMedia } from './collections/SocialMedia'
+import { HomePage } from './globals/HomePage'
 import { BiographyPage } from './globals/BiographyPage'
 import { EventsPage } from './globals/EventsPage'
 import { FaqPage } from './globals/FaqPage'
-import { HomePage } from './globals/HomePage'
 import { BookCategories } from './collections/BookCategories'
 import { Books } from './collections/Books'
 import { BorrowingRecords } from './collections/BorrowingRecords'
@@ -64,7 +64,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Events, FAQ, SocialMedia, BookCategories, Books, BorrowingRecords],
-  globals: [BiographyPage, EventsPage, FaqPage, HomePage],
+  globals: [HomePage, BiographyPage, EventsPage, FaqPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
