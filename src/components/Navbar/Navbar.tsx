@@ -48,7 +48,7 @@ export const Navbar = () => {
         <div className="nav-active-logo">
           <Link href="/">
             <Image
-              src="/logo-2.png"
+              src="/logo.png"
               alt="Majang Buku Logo"
               width="180"
               height="90"
