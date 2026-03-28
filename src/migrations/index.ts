@@ -7,6 +7,7 @@ import * as migration_20260328_103341_add_image_url_to_all from './20260328_1033
 import * as migration_20260328_104723_add_home_page_global from './20260328_104723_add_home_page_global';
 import * as migration_20260328_105037_seed_home_page_data from './20260328_105037_seed_home_page_data';
 
+
 export const migrations = [
   {
     up: migration_20260323_081453_migrate_books.up,
@@ -46,6 +47,6 @@ export const migrations = [
   {
     up: migration_20260328_105037_seed_home_page_data.up,
     down: migration_20260328_105037_seed_home_page_data.down,
-    name: '20260328_105037_seed_home_page_data'
+    name: '20260328_105037_seed_home_page_data',
   },
 ];

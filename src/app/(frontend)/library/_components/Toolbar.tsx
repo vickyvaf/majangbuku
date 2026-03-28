@@ -68,8 +68,8 @@ export const Toolbar = ({
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <button 
-            className="mobile-filter-btn" 
+          <button
+            className="mobile-filter-btn"
             onClick={() => setIsBottomSheetOpen(true)}
             aria-label="Filter"
           >
@@ -85,7 +85,7 @@ export const Toolbar = ({
               value={sort}
               onChange={(e) => handleSortChange(e.target.value)}
             >
-              <option value="-borrowCount">PALING SERING DIBACA</option>
+              {/* <option value="-borrowCount">PALING SERING DIBACA</option> */}
               <option value="-createdAt">BARU DITAMBAHKAN</option>
               <option value="title">JUDUL (A-Z)</option>
               <option value="-title">JUDUL (Z-A)</option>

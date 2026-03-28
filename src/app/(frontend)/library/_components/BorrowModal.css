@@ -1,0 +1,301 @@
+/* Borrow Modal Styles */
+.borrow-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* Bottom sheet on mobile */
+}
+
+.borrow-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.borrow-modal-container {
+  position: relative;
+  width: 100%;
+  max-height: 90vh;
+  background-color: #f9f7f2;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 2rem;
+  font-family: inherit;
+  color: #1a1a1a;
+}
+
+.borrow-modal-container.open {
+  transform: translateY(0);
+}
+
+/* Desktop Styles */
+@media (min-width: 768px) {
+  .borrow-modal-overlay {
+    align-items: flex-start;
+    /* Important for scrolling */
+    padding: 3rem 0;
+    /* Extra space at top and bottom */
+  }
+
+  .borrow-modal-container {
+    margin: auto;
+    /* Centering while allowing overflow at the top */
+    width: 450px;
+    border-radius: 16px;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+  }
+
+  .borrow-modal-container.open {
+    transform: translateY(0);
+    opacity: 1;
+    max-height: none;
+    height: auto;
+  }
+}
+
+.borrow-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+}
+
+.borrow-modal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1a1a1a;
+  text-align: left;
+  font-family: var(--font-main, serif);
+  flex: 1;
+}
+
+.borrow-close-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.borrow-close-btn:hover {
+  color: #333;
+}
+
+.borrow-modal-content {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 0.5rem;
+  /* Space for scrollbar */
+  margin-right: -0.5rem;
+}
+
+@media (min-width: 768px) {
+  .borrow-modal-content {
+    overflow-y: visible;
+    flex: initial;
+    padding-right: 0;
+    margin-right: 0;
+  }
+}
+
+/* Hide scrollbar but keep functionality for cleaner look */
+.borrow-modal-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.borrow-modal-content::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+/* Book Info Card */
+.book-info-card {
+  display: flex;
+  gap: 1.5rem;
+  background: #f5f3ed;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.book-info-image {
+  width: 60px;
+  height: 80px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-info-image img,
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-image {
+  background: #ddd;
+}
+
+.book-info-details h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.15rem 0;
+  color: #1a1a1a;
+}
+
+.book-info-author {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 0 0 0.4rem 0;
+  font-weight: 500;
+}
+
+.book-info-author:empty {
+  display: none;
+}
+
+.book-id-code {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #888;
+  margin: 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Form Styles */
+.borrow-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #999;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.input-wrapper input {
+  width: 100%;
+  background: #f5f3ed;
+  border: 1px solid transparent;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #333;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+  font-family: inherit;
+}
+
+.input-wrapper input:focus {
+  border-color: #ddd;
+  background: #fff;
+}
+
+/* Footer Styling */
+.borrow-modal-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.pinjam-submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 0.3s, transform 0.2s, opacity 0.3s;
+  width: 100%;
+}
+
+.pinjam-submit-btn:hover:not(:disabled) {
+  background: #333;
+}
+
+.pinjam-submit-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.pinjam-submit-btn:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.pertama-kali-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+  width: 100%;
+}
+
+.pertama-kali-btn:hover {
+  background: #1a1a1a;
+  color: #fff;
+}

@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Book } from '@/payload-types'
 import { ScrollReveal } from './ScrollReveal'
+import { BorrowModal } from './BorrowModal'
 
 export const BookCard = ({
   book,
@@ -10,52 +12,59 @@ export const BookCard = ({
   index: number
   whatsappNumber?: string
 }) => {
-  const waNumber = (whatsappNumber || '6281234567890').replace(/[^0-9]/g, '')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
-    <ScrollReveal key={book.id} delay={(index % 3) * 100}>
-      <div className="book-card">
-        <div className="book-cover-wrapper">
-          {book.coverImageUrl ? (
-            <img src={book.coverImageUrl} alt={book.title} className="book-cover" />
-          ) : book.coverImage && typeof book.coverImage !== 'number' ? (
-            <img src={book.coverImage.url || ''} alt={book.title} className="book-cover" />
-          ) : (
-            <div className="book-cover loading-skeleton" />
+    <>
+      <ScrollReveal key={book.id} delay={(index % 3) * 100}>
+        <div className="book-card">
+          <div className="book-cover-wrapper">
+            {book.coverImageUrl ? (
+              <img src={book.coverImageUrl} alt={book.title} className="book-cover" />
+            ) : book.coverImage && typeof book.coverImage !== 'number' ? (
+              <img src={book.coverImage.url || ''} alt={book.title} className="book-cover" />
+            ) : (
+              <div className="book-cover loading-skeleton" />
+            )}
+          </div>
+          <div className="book-card-header">
+            <div className="book-author">{book.author}</div>
+            <div
+              className={`badge badge-${book.status === 'reference_only' ? 'reference' : (book.status as string)?.replace('_', '-')}`}
+            >
+              {book.status === 'available'
+                ? '1 Tersedia'
+                : book.status === 'borrowed'
+                  ? '0 Tersedia'
+                  : book.status === 'reference_only'
+                    ? 'Dilokasi'
+                    : (book.status as string)?.replace('_', ' ') || ''}
+            </div>
+          </div>
+          <h3 className="book-title">{book.title}</h3>
+          <div className="book-card-meta">
+            <span className="meta-value">{book.isbn_sku || 'N/A'}</span>
+          </div>
+          {book.description && <div className="book-description">{book.description}</div>}
+
+
+          {book.status === 'available' && (
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="borrow-button"
+            >
+              Pinjam Buku
+            </button>
           )}
         </div>
-        <div className="book-card-header">
-          <div className="book-author">{book.author}</div>
-          <div
-            className={`badge badge-${book.status === 'reference_only' ? 'reference' : (book.status as string)?.replace('_', '-')}`}
-          >
-            {book.status === 'available'
-              ? '1 Tersedia'
-              : book.status === 'borrowed'
-                ? '0 Tersedia'
-                : book.status === 'reference_only'
-                  ? 'Dilokasi'
-                  : (book.status as string)?.replace('_', ' ') || ''}
-          </div>
-        </div>
-        <h3 className="book-title">{book.title}</h3>
-        <div className="book-card-meta">
-          <span className="meta-value">{book.isbn_sku || 'N/A'}</span>
-        </div>
-        {book.description && <div className="book-description">{book.description}</div>}
+      </ScrollReveal>
 
-
-        {book.status === 'available' && (
-          <a
-            href={`https://wa.me/${waNumber}?text=Halo Majang Buku, saya ingin meminjam buku "${book.title} - ${book.author}"`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="borrow-button"
-          >
-            Pinjam Buku
-          </a>
-        )}
-      </div>
-    </ScrollReveal>
+      <BorrowModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        book={book}
+        whatsappNumber={whatsappNumber}
+      />
+    </>
   )
 }
