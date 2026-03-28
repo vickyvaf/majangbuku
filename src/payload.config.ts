@@ -13,6 +13,7 @@ import { HomePage } from './globals/HomePage'
 import { BiographyPage } from './globals/BiographyPage'
 import { EventsPage } from './globals/EventsPage'
 import { FaqPage } from './globals/FaqPage'
+import { SiteSettings } from './globals/SiteSettings'
 import { BookCategories } from './collections/BookCategories'
 import { Books } from './collections/Books'
 import { BorrowingRecords } from './collections/BorrowingRecords'
@@ -64,7 +65,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Events, FAQ, SocialMedia, BookCategories, Books, BorrowingRecords],
-  globals: [HomePage, BiographyPage, EventsPage, FaqPage],
+  globals: [HomePage, BiographyPage, EventsPage, FaqPage, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

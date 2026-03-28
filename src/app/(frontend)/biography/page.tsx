@@ -6,6 +6,10 @@ import configPromise from '@payload-config'
 import { RichText } from '@/components/RichText'
 import { StripsHero } from '@/components/StripsHero'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+
 export default async function BiographyPage() {
   const payload = await getPayload({ config: configPromise })
   const biography = await payload.findGlobal({

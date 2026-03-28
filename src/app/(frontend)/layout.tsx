@@ -9,6 +9,10 @@ import React from 'react'
 import NextTopLoader from 'nextjs-toploader'
 import './styles.css'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+
 const bitter = Bitter({
   subsets: ['latin'],
   display: 'swap',
@@ -41,13 +45,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   // Format events for component
   const events = eventsDocs.map((doc) => {
-    const eventImage = doc.image && typeof doc.image !== 'number' ? doc.image : null
+    // Robust check for Media object
+    const eventMedia =
+      doc.image && typeof doc.image === 'object' && 'url' in doc.image ? doc.image : null
 
-    // Ensure URL is relative to prevent Next.js upstream private IP error in development
-    let imageUrl = eventImage?.url || ''
+    // Fallback to imageUrl field if direct media is missing
+    let imageUrl = (eventMedia?.url as string) || (doc.imageUrl as string) || ''
     const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
-    if (imageUrl.startsWith(serverUrl)) {
+    // Only strip serverUrl if it's actually there
+    if (imageUrl && imageUrl.startsWith(serverUrl)) {
       imageUrl = imageUrl.substring(serverUrl.length)
     }
 
@@ -57,10 +64,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       description: doc.description,
       date: doc.date,
       location: doc.location || undefined,
-      image: eventImage
+      image: imageUrl
         ? {
             url: imageUrl,
-            alt: eventImage.alt || doc.title,
+            alt: (eventMedia?.alt as string) || doc.title,
           }
         : undefined,
     }
@@ -84,6 +91,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     icon: doc.icon || 'link',
   }))
 
+  // Fetch site settings with explicit depth
+  const siteSettings = await payload.findGlobal({
+    slug: 'site-settings',
+    depth: 1,
+  })
+
+  // Helper to extract URL from Media object
+  const getMediaUrl = (media: any) => {
+    if (media && typeof media === 'object' && media.url) {
+      return media.url
+    }
+    return null
+  }
+
+  const logo = getMediaUrl(siteSettings.logo) || '/logo.png'
+  const logoSecondary = getMediaUrl(siteSettings.logoSecondary) || undefined
+
   return (
     <html lang="id" className={bitter.variable}>
       <body>
@@ -94,7 +118,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
         <Background />
         <EventsSidebar events={events} socialLinks={socialLinks} />
-        <Navbar />
+        <Navbar logo={logo || '/logo.png'} logoSecondary={logoSecondary} />
         <main className="main-wrapper">{children}</main>
         <BottomBar />
       </body>

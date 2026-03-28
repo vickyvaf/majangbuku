@@ -7,6 +7,10 @@ import { Calendar, MapPin } from 'lucide-react'
 import { getPayload } from 'payload'
 import './../styles.css'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+
 export default async function EventsPage() {
   const payload = await getPayload({ config })
 

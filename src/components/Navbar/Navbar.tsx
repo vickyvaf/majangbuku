@@ -2,11 +2,15 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import './Navbar.css'
 
-export const Navbar = () => {
+interface NavbarProps {
+  logo: string
+  logoSecondary?: string | null
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ logo, logoSecondary }) => {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
@@ -47,13 +51,11 @@ export const Navbar = () => {
       <div className={`nav-overlay ${isOpen ? 'open' : ''}`}>
         <div className="nav-active-logo">
           <Link href="/">
-            <Image
-              src="/logo.png"
+            <img
+              src={logoSecondary || logo}
               alt="Majang Buku Logo"
-              width="180"
-              height="90"
               className="nav-logo-img"
-              priority
+              style={{ width: '180px', height: 'auto', objectFit: 'contain' }}
             />
           </Link>
         </div>

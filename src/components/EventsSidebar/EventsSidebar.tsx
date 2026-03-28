@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import { Megaphone, X, MapPin, Calendar } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import './EventsSidebar.css'
 
@@ -92,12 +91,18 @@ export const EventsSidebar: React.FC<EventsSidebarProps> = ({ events, socialLink
               <div key={event.id} className="sidebar-event-card">
                 {event.image?.url && (
                   <div className="event-card-image">
-                    <Image
+                    <img
                       src={event.image.url}
                       alt={event.image.alt || event.title}
-                      fill
-                      sizes="100vw"
-                      style={{ objectFit: 'cover' }}
+                      className="event-img"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0
+                      }}
                     />
                   </div>
                 )}

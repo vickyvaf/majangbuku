@@ -1,7 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import './styles.css'
-import { Header } from '@/components/Header/Header'
 import type { Media } from '@/payload-types'
 
 interface Strip {
@@ -66,8 +65,7 @@ export function HomeClient({
 
   return (
     <>
-      <Header />
-      <div className="home-wrapper">
+    <div className="home-wrapper">
         <section className="carousel-container">
           <div
             className={`strips-wrapper${isReady ? ' ready' : ''}`}

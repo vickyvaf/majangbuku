@@ -95,7 +95,11 @@ export async function BookList({
     limit: 12, // Load more on start
   })
 
-  const whatsappNumber = process.env.WHATSAPP_NUMBER || ''
+  const siteSettings = await payload.findGlobal({
+    slug: 'site-settings',
+  })
+
+  const whatsappNumber = siteSettings.whatsappNumber || process.env.WHATSAPP_NUMBER || ''
 
   if (books.length === 0) {
     return (

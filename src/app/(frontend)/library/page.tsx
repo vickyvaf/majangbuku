@@ -11,6 +11,10 @@ import { ScrollReveal } from './_components/ScrollReveal'
 import { BookList, BookGridSkeleton } from './_components/BookList'
 import { Suspense } from 'react'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+
 export default async function LibraryPage({
   searchParams,
 }: {

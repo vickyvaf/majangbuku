@@ -104,12 +104,14 @@ export interface Config {
     'biography-page': BiographyPage;
     'events-page': EventsPage;
     'faq-page': FaqPage;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'biography-page': BiographyPageSelect<false> | BiographyPageSelect<true>;
     'events-page': EventsPageSelect<false> | EventsPageSelect<true>;
     'faq-page': FaqPageSelect<false> | FaqPageSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -668,6 +670,21 @@ export interface FaqPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  logo: number | Media;
+  logoSecondary: number | Media;
+  /**
+   * Format: 628123456789 (without + or spaces)
+   */
+  whatsappNumber: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page_select".
  */
 export interface HomePageSelect<T extends boolean = true> {
@@ -725,6 +742,18 @@ export interface FaqPageSelect<T extends boolean = true> {
   image?: T;
   imageUrl?: T;
   faqs?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  logo?: T;
+  logoSecondary?: T;
+  whatsappNumber?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

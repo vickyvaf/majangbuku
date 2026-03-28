@@ -1,6 +1,11 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { HomeClient } from './HomeClient'
+import { Header } from '@/components/Header/Header'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 
 const STRIPS_FALLBACK = [
   {
@@ -21,11 +26,14 @@ export default async function HomePage() {
   const strips = homeData?.strips?.length ? homeData.strips : STRIPS_FALLBACK
 
   return (
-    <HomeClient
-      strips={strips as any}
-      defaultSubtitle={homeData?.defaultSubtitle}
-      defaultTitle={homeData?.defaultTitle}
-      defaultDescription={homeData?.defaultDescription}
-    />
+    <>
+      <Header />
+      <HomeClient
+        strips={strips as any}
+        defaultSubtitle={homeData?.defaultSubtitle}
+        defaultTitle={homeData?.defaultTitle}
+        defaultDescription={homeData?.defaultDescription}
+      />
+    </>
   )
 }

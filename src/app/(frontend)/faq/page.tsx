@@ -6,6 +6,10 @@ import { FAQAccordion } from '@/components/FAQAccordion'
 import './../styles.css'
 import { Header } from '@/components/Header/Header'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+
 export default async function FAQPage() {
   const payload = await getPayload({ config })
   
