@@ -13,6 +13,7 @@ export const BookCard = ({
   whatsappNumber?: string
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <>
@@ -33,7 +34,7 @@ export const BookCard = ({
               className={`badge badge-${book.status === 'reference_only' ? 'reference' : (book.status as string)?.replace('_', '-')}`}
             >
               {book.status === 'available'
-                ? '1 Tersedia'
+                ? `${book.quantity || 0} Tersedia`
                 : book.status === 'borrowed'
                   ? '0 Tersedia'
                   : book.status === 'reference_only'
@@ -43,9 +44,31 @@ export const BookCard = ({
           </div>
           <h3 className="book-title">{book.title}</h3>
           <div className="book-card-meta">
-            <span className="meta-value">{book.isbn_sku || 'N/A'}</span>
+            <span className="meta-value">{book?.itemCode || 'N/A'} {book?.isbn_issn ? `| ${book.isbn_issn}` : ''}</span>
           </div>
-          {book.description && <div className="book-description">{book.description}</div>}
+          {book.description && (
+            <div className="book-description-container">
+              <div className={`book-description ${isExpanded ? 'is-expanded' : ''}`}>
+                {book.description}
+              </div>
+              {!isExpanded && book.description.length > 120 && (
+                <button
+                  className="read-more-btn"
+                  onClick={() => setIsExpanded(true)}
+                >
+                  Baca Selengkapnya
+                </button>
+              )}
+              {isExpanded && (
+                <button
+                  className="read-more-btn"
+                  onClick={() => setIsExpanded(false)}
+                >
+                  Tutup
+                </button>
+              )}
+            </div>
+          )}
 
 
           {book.status === 'available' && (

@@ -12,6 +12,7 @@ export const BookCategories: CollectionConfig = {
   fields: [
     {
       name: 'title',
+      label: 'Nama Kategori',
       type: 'text',
       required: true,
     },

@@ -41,21 +41,46 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 1.5rem; /* Space for items and scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+/* Premium Scrollbar Styling */
+.sidebar-nav::-webkit-scrollbar {
+  width: 2px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-link {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #666;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
+  line-height: 1.4;
+  opacity: 0.8;
 }
 
 .sidebar-link:hover,
 .sidebar-link.active {
   color: var(--text);
   font-weight: 600;
+  opacity: 1;
 }
 
 .library-main {
@@ -301,13 +326,46 @@
   font-size: 0.9rem;
   line-height: 1.5;
   color: #555;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: all 0.3s ease;
+}
+
+.book-description.is-expanded {
+  -webkit-line-clamp: initial;
+  line-clamp: initial;
+  margin-bottom: 0.5rem;
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #888;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s;
+  display: inline-block;
+}
+
+.read-more-btn:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.book-description-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .book-meta {

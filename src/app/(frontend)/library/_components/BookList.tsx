@@ -66,7 +66,7 @@ export async function BookList({
       or: [
         { title: { contains: search } },
         { author: { contains: search } },
-        { isbn_sku: { contains: search } },
+        { itemCode: { contains: search } },
       ],
     })
   }

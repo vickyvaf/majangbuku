@@ -286,20 +286,46 @@ export interface Book {
   title: string;
   author: string;
   description?: string | null;
+  categories?: (number | BookCategory)[] | null;
+  /**
+   * Contoh: <Fiksi><Novel><Romantis>
+   */
+  topics?: string | null;
   coverImage?: (number | null) | Media;
   /**
-   * Jika cover image tidak ada, gunakan URL gambar dari luar (opsional).
+   * Gunakan jika gambar di-hosting di luar.
    */
   coverImageUrl?: string | null;
-  categories?: (number | BookCategory)[] | null;
-  isbn_sku?: string | null;
-  owner_donator?: string | null;
+  isbn_issn?: string | null;
+  edition?: string | null;
+  seriesTitle?: string | null;
+  publisher?: string | null;
+  publishYear?: string | null;
+  placeOfPublication?: string | null;
+  language?: string | null;
+  callNumber?: string | null;
+  classification?: string | null;
+  /**
+   * Contoh: 120 hlm. ; 18 cm.
+   */
+  collation?: string | null;
+  itemCode: string;
+  receivedDate?: string | null;
+  /**
+   * Contoh: Donasi, Rak, atau Nama Donor
+   */
+  bookSource?: string | null;
+  quantity?: number | null;
+  site?: ('Grati' | 'Labruk') | null;
+  /**
+   * Contoh: Text, Art Original
+   */
+  gmd?: string | null;
+  price?: number | null;
+  priceCurrency?: string | null;
+  remarks?: string | null;
   borrowCount?: number | null;
   status: 'available' | 'borrowed' | 'reference_only';
-  /**
-   * Pilih atau ketik sumber buku baru jika tidak ada di daftar
-   */
-  bookSource?: ('Rak' | 'Donasi') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -512,14 +538,31 @@ export interface BooksSelect<T extends boolean = true> {
   title?: T;
   author?: T;
   description?: T;
+  categories?: T;
+  topics?: T;
   coverImage?: T;
   coverImageUrl?: T;
-  categories?: T;
-  isbn_sku?: T;
-  owner_donator?: T;
+  isbn_issn?: T;
+  edition?: T;
+  seriesTitle?: T;
+  publisher?: T;
+  publishYear?: T;
+  placeOfPublication?: T;
+  language?: T;
+  callNumber?: T;
+  classification?: T;
+  collation?: T;
+  itemCode?: T;
+  receivedDate?: T;
+  bookSource?: T;
+  quantity?: T;
+  site?: T;
+  gmd?: T;
+  price?: T;
+  priceCurrency?: T;
+  remarks?: T;
   borrowCount?: T;
   status?: T;
-  bookSource?: T;
   updatedAt?: T;
   createdAt?: T;
 }

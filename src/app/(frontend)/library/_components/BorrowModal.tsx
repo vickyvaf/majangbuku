@@ -103,7 +103,7 @@ export const BorrowModal: React.FC<BorrowModalProps> = ({
             <div className="book-info-details">
               <h3>{book.title}</h3>
               <p className="book-info-author">{book.author}</p>
-              <p className="book-id-code">{book.isbn_sku || 'NO ISBN/SKU'}</p>
+              <p className="book-id-code">{book.itemCode || 'NO ITEM CODE'}</p>
             </div>
           </div>
 

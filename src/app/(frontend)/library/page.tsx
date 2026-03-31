@@ -29,9 +29,39 @@ export default async function LibraryPage({
   const availableOnly = params.available === 'true'
 
   // Fetch all categories for the sidebar
+  // Fetch used category IDs from books
+  const { docs: booksForCategories } = await payload.find({
+    collection: 'books',
+    select: {
+      categories: true,
+    },
+    pagination: false,
+    depth: 0,
+  })
+
+  // Extract unique category IDs that are present in any book
+  const usedCategoryIds = Array.from(
+    new Set(
+      booksForCategories.flatMap((book) => {
+        if (!book.categories) return []
+        if (Array.isArray(book.categories)) {
+          return book.categories.map((cat: any) => (typeof cat === 'object' ? cat.id : cat))
+        }
+        return [typeof book.categories === 'object' ? (book.categories as any).id : book.categories]
+      }),
+    ),
+  )
+
+  // Fetch only those categories for the sidebar
   const { docs: categories } = await payload.find({
     collection: 'book-categories',
     sort: 'title',
+    pagination: false,
+    where: {
+      id: {
+        in: usedCategoryIds.length > 0 ? usedCategoryIds : ['_none_'],
+      },
+    },
   })
 
   return (

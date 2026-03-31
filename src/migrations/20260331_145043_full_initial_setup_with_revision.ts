@@ -4,8 +4,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    CREATE TYPE "public"."enum_events_status" AS ENUM('upcoming', 'registration_open', 'completed', 'cancelled');
   CREATE TYPE "public"."enum_social_media_icon" AS ENUM('instagram', 'facebook', 'twitter', 'youtube', 'tiktok', 'threads', 'whatsapp', 'telegram', 'link');
+  CREATE TYPE "public"."enum_books_site" AS ENUM('Grati', 'Labruk');
   CREATE TYPE "public"."enum_books_status" AS ENUM('available', 'borrowed', 'reference_only');
-  CREATE TYPE "public"."enum_books_book_source" AS ENUM('Rak', 'Donasi');
   CREATE TYPE "public"."enum_borrowing_records_status" AS ENUM('active', 'returned');
   CREATE TABLE "users_sessions" (
   	"_order" integer NOT NULL,
@@ -51,6 +51,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"date" timestamp(3) with time zone NOT NULL,
   	"location" varchar,
   	"image_id" integer,
+  	"image_url" varchar,
   	"status" "enum_events_status" DEFAULT 'upcoming',
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
@@ -88,12 +89,31 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" serial PRIMARY KEY NOT NULL,
   	"title" varchar NOT NULL,
   	"author" varchar NOT NULL,
-  	"cover_image_id" integer NOT NULL,
-  	"isbn_sku" varchar,
-  	"owner_donator" varchar,
+  	"description" varchar,
+  	"topics" varchar,
+  	"cover_image_id" integer,
+  	"cover_image_url" varchar,
+  	"isbn_issn" varchar,
+  	"edition" varchar,
+  	"series_title" varchar,
+  	"publisher" varchar,
+  	"publish_year" varchar,
+  	"place_of_publication" varchar,
+  	"language" varchar DEFAULT 'Indonesia',
+  	"call_number" varchar,
+  	"classification" varchar,
+  	"collation" varchar,
+  	"item_code" varchar NOT NULL,
+  	"received_date" timestamp(3) with time zone,
+  	"book_source" varchar,
+  	"quantity" numeric DEFAULT 1,
+  	"site" "enum_books_site",
+  	"gmd" varchar,
+  	"price" numeric,
+  	"price_currency" varchar DEFAULT 'Rupiah',
+  	"remarks" varchar,
   	"borrow_count" numeric DEFAULT 0,
   	"status" "enum_books_status" DEFAULT 'available' NOT NULL,
-  	"book_source" "enum_books_book_source",
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
@@ -169,12 +189,33 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
   
+  CREATE TABLE "home_page_strips" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"title" varchar NOT NULL,
+  	"subtitle" varchar NOT NULL,
+  	"description" varchar NOT NULL,
+  	"image_id" integer,
+  	"image_url" varchar
+  );
+  
+  CREATE TABLE "home_page" (
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"default_subtitle" varchar DEFAULT 'Selamat Datang di Majang Buku' NOT NULL,
+  	"default_title" varchar DEFAULT 'Kegiatan Pilihan' NOT NULL,
+  	"default_description" varchar DEFAULT 'Jelajahi berbagai inisiatif literasi bersama kami' NOT NULL,
+  	"updated_at" timestamp(3) with time zone,
+  	"created_at" timestamp(3) with time zone
+  );
+  
   CREATE TABLE "biography_page" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"title" varchar DEFAULT 'Biography' NOT NULL,
   	"subtitle" varchar,
-  	"image_id" integer NOT NULL,
-  	"content" jsonb NOT NULL,
+  	"image_id" integer,
+  	"image_url" varchar,
+  	"content" jsonb,
   	"updated_at" timestamp(3) with time zone,
   	"created_at" timestamp(3) with time zone
   );
@@ -183,7 +224,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" serial PRIMARY KEY NOT NULL,
   	"title" varchar DEFAULT 'Kegiatan' NOT NULL,
   	"subtitle" varchar DEFAULT 'Daftar kegiatan terbaru yang akan datang',
-  	"image_id" integer NOT NULL,
+  	"image_id" integer,
+  	"image_url" varchar,
   	"updated_at" timestamp(3) with time zone,
   	"created_at" timestamp(3) with time zone
   );
@@ -192,6 +234,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" serial PRIMARY KEY NOT NULL,
   	"title" varchar DEFAULT 'FAQ' NOT NULL,
   	"subtitle" varchar DEFAULT 'Find your answers for the most asked questions',
+  	"image_id" integer,
+  	"image_url" varchar,
   	"updated_at" timestamp(3) with time zone,
   	"created_at" timestamp(3) with time zone
   );
@@ -202,6 +246,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"parent_id" integer NOT NULL,
   	"path" varchar NOT NULL,
   	"faq_id" integer
+  );
+  
+  CREATE TABLE "site_settings" (
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"logo_id" integer NOT NULL,
+  	"logo_secondary_id" integer NOT NULL,
+  	"whatsapp_number" varchar NOT NULL,
+  	"updated_at" timestamp(3) with time zone,
+  	"created_at" timestamp(3) with time zone
   );
   
   ALTER TABLE "users_sessions" ADD CONSTRAINT "users_sessions_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
@@ -221,10 +274,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_borrowing_records_fk" FOREIGN KEY ("borrowing_records_id") REFERENCES "public"."borrowing_records"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_preferences"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "home_page_strips" ADD CONSTRAINT "home_page_strips_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "home_page_strips" ADD CONSTRAINT "home_page_strips_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."home_page"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "biography_page" ADD CONSTRAINT "biography_page_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "events_page" ADD CONSTRAINT "events_page_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "faq_page" ADD CONSTRAINT "faq_page_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "faq_page_rels" ADD CONSTRAINT "faq_page_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."faq_page"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "faq_page_rels" ADD CONSTRAINT "faq_page_rels_faq_fk" FOREIGN KEY ("faq_id") REFERENCES "public"."faq"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "site_settings" ADD CONSTRAINT "site_settings_logo_id_media_id_fk" FOREIGN KEY ("logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "site_settings" ADD CONSTRAINT "site_settings_logo_secondary_id_media_id_fk" FOREIGN KEY ("logo_secondary_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   CREATE INDEX "users_sessions_order_idx" ON "users_sessions" USING btree ("_order");
   CREATE INDEX "users_sessions_parent_id_idx" ON "users_sessions" USING btree ("_parent_id");
   CREATE INDEX "users_updated_at_idx" ON "users" USING btree ("updated_at");
@@ -245,6 +303,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "book_categories_updated_at_idx" ON "book_categories" USING btree ("updated_at");
   CREATE INDEX "book_categories_created_at_idx" ON "book_categories" USING btree ("created_at");
   CREATE INDEX "books_cover_image_idx" ON "books" USING btree ("cover_image_id");
+  CREATE UNIQUE INDEX "books_item_code_idx" ON "books" USING btree ("item_code");
   CREATE INDEX "books_updated_at_idx" ON "books" USING btree ("updated_at");
   CREATE INDEX "books_created_at_idx" ON "books" USING btree ("created_at");
   CREATE INDEX "books_rels_order_idx" ON "books_rels" USING btree ("order");
@@ -278,12 +337,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_preferences_rels_users_id_idx" ON "payload_preferences_rels" USING btree ("users_id");
   CREATE INDEX "payload_migrations_updated_at_idx" ON "payload_migrations" USING btree ("updated_at");
   CREATE INDEX "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");
+  CREATE INDEX "home_page_strips_order_idx" ON "home_page_strips" USING btree ("_order");
+  CREATE INDEX "home_page_strips_parent_id_idx" ON "home_page_strips" USING btree ("_parent_id");
+  CREATE INDEX "home_page_strips_image_idx" ON "home_page_strips" USING btree ("image_id");
   CREATE INDEX "biography_page_image_idx" ON "biography_page" USING btree ("image_id");
   CREATE INDEX "events_page_image_idx" ON "events_page" USING btree ("image_id");
+  CREATE INDEX "faq_page_image_idx" ON "faq_page" USING btree ("image_id");
   CREATE INDEX "faq_page_rels_order_idx" ON "faq_page_rels" USING btree ("order");
   CREATE INDEX "faq_page_rels_parent_idx" ON "faq_page_rels" USING btree ("parent_id");
   CREATE INDEX "faq_page_rels_path_idx" ON "faq_page_rels" USING btree ("path");
-  CREATE INDEX "faq_page_rels_faq_id_idx" ON "faq_page_rels" USING btree ("faq_id");`)
+  CREATE INDEX "faq_page_rels_faq_id_idx" ON "faq_page_rels" USING btree ("faq_id");
+  CREATE INDEX "site_settings_logo_idx" ON "site_settings" USING btree ("logo_id");
+  CREATE INDEX "site_settings_logo_secondary_idx" ON "site_settings" USING btree ("logo_secondary_id");`)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
@@ -304,13 +369,16 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "payload_preferences" CASCADE;
   DROP TABLE "payload_preferences_rels" CASCADE;
   DROP TABLE "payload_migrations" CASCADE;
+  DROP TABLE "home_page_strips" CASCADE;
+  DROP TABLE "home_page" CASCADE;
   DROP TABLE "biography_page" CASCADE;
   DROP TABLE "events_page" CASCADE;
   DROP TABLE "faq_page" CASCADE;
   DROP TABLE "faq_page_rels" CASCADE;
+  DROP TABLE "site_settings" CASCADE;
   DROP TYPE "public"."enum_events_status";
   DROP TYPE "public"."enum_social_media_icon";
+  DROP TYPE "public"."enum_books_site";
   DROP TYPE "public"."enum_books_status";
-  DROP TYPE "public"."enum_books_book_source";
   DROP TYPE "public"."enum_borrowing_records_status";`)
 }
