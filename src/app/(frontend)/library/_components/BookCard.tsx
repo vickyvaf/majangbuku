@@ -7,10 +7,12 @@ export const BookCard = ({
   book,
   index,
   whatsappNumber,
+  googleFormLink,
 }: {
   book: Book
   index: number
   whatsappNumber?: string
+  googleFormLink?: string
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -87,6 +89,7 @@ export const BookCard = ({
         onClose={() => setIsModalOpen(false)}
         book={book}
         whatsappNumber={whatsappNumber}
+        googleFormLink={googleFormLink}
       />
     </>
   )

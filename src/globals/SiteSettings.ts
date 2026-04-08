@@ -32,5 +32,13 @@ export const SiteSettings: GlobalConfig = {
         description: 'Format: 628123456789 (without + or spaces)',
       },
     },
+    {
+      name: 'googleFormLink',
+      type: 'text',
+      label: 'Google Form Link',
+      admin: {
+        description: 'Link to the Google Form for first-time borrowers.',
+      },
+    },
   ],
 }

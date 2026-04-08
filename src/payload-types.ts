@@ -723,6 +723,10 @@ export interface SiteSetting {
    * Format: 628123456789 (without + or spaces)
    */
   whatsappNumber: string;
+  /**
+   * Link to the Google Form for first-time borrowers.
+   */
+  googleFormLink?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -797,6 +801,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
   logoSecondary?: T;
   whatsappNumber?: T;
+  googleFormLink?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

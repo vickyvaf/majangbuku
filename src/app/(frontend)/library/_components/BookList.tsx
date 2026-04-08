@@ -100,6 +100,7 @@ export async function BookList({
   })
 
   const whatsappNumber = siteSettings?.whatsappNumber || ''
+  const googleFormLink = (siteSettings as any)?.googleFormLink || ''
 
   if (books.length === 0) {
     return (
@@ -119,6 +120,7 @@ export async function BookList({
       initialHasNextPage={hasNextPage}
       initialNextPage={nextPage}
       whatsappNumber={whatsappNumber}
+      googleFormLink={googleFormLink}
     />
   )
 }

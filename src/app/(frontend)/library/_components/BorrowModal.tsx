@@ -10,6 +10,7 @@ interface BorrowModalProps {
   onClose: () => void
   book: Book
   whatsappNumber?: string
+  googleFormLink?: string
 }
 
 export const BorrowModal: React.FC<BorrowModalProps> = ({
@@ -17,6 +18,7 @@ export const BorrowModal: React.FC<BorrowModalProps> = ({
   onClose,
   book,
   whatsappNumber,
+  googleFormLink,
 }) => {
   const [name, setName] = useState('')
   const [borrowDate, setBorrowDate] = useState('')
@@ -155,7 +157,13 @@ export const BorrowModal: React.FC<BorrowModalProps> = ({
           >
             Pinjam Sekarang
           </button>
-          <a href="#how-to-borrow" className="pertama-kali-btn" onClick={onClose}>
+          <a
+            href={googleFormLink || '#'}
+            className="pertama-kali-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onClose}
+          >
             Pertama Kali Pinjam
           </a>
         </div>
