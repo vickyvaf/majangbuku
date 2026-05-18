@@ -15,6 +15,7 @@ interface Event {
     url: string
     alt: string
   }
+  buttonLink?: string
 }
 
 interface SocialLink {
@@ -87,55 +88,70 @@ export const EventsSidebar: React.FC<EventsSidebarProps> = ({ events, socialLink
 
         <div className="sidebar-content">
           {events && events.length > 0 ? (
-            events.map((event) => (
-              <div key={event.id} className="sidebar-event-card">
-                {event.image?.url && (
-                  <div className="event-card-image">
-                    <img
-                      src={event.image.url}
-                      alt={event.image.alt || event.title}
-                      className="event-img"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0
-                      }}
-                    />
-                  </div>
-                )}
-                <div className="event-card-info">
-                  <h3 className="event-card-title">{event.title}</h3>
-                  {event.location && (
-                    <p className="event-card-location">
-                      <MapPin
+            events.map((event) => {
+              const eventDate = new Date(event.date)
+              const isPast = eventDate < new Date()
+
+              return (
+                <div key={event.id} className="sidebar-event-card">
+                  {event.image?.url && (
+                    <div className="event-card-image">
+                      <img
+                        src={event.image.url}
+                        alt={event.image.alt || event.title}
+                        className="event-img"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0
+                        }}
+                      />
+                    </div>
+                  )}
+                  <div className="event-card-info">
+                    <h3 className="event-card-title">{event.title}</h3>
+                    {event.location && (
+                      <p className="event-card-location">
+                        <MapPin
+                          size={12}
+                          style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }}
+                        />
+                        {event.location}
+                      </p>
+                    )}
+                    <p className="event-card-date" suppressHydrationWarning>
+                      <Calendar
                         size={12}
                         style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }}
-                      />
-                      {event.location}
-                    </p>
-                  )}
-                  <p className="event-card-date" suppressHydrationWarning>
-                    <Calendar
-                      size={12}
-                      style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }}
 
-                    />
-                    {new Date(event.date).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })}
-                  </p>
-                  <div className="event-card-desc-snippet">
-                    {((event.description as any)?.root?.children?.[0]?.children?.[0]
-                      ?.text as string) || ''}
+                      />
+                      {new Date(event.date).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </p>
+                    <div className="event-card-desc-snippet">
+                      {((event.description as any)?.root?.children?.[0]?.children?.[0]
+                        ?.text as string) || ''}
+                    </div>
+                    {event.buttonLink && !isPast && (
+                      <a
+                        href={event.buttonLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="sidebar-event-btn"
+                      >
+                        Daftar Sekarang
+                      </a>
+                    )}
                   </div>
                 </div>
-              </div>
-            ))
+              )
+            })
           ) : (
             <div className="sidebar-empty">Belum ada kegiatan terbaru saat ini.</div>
           )}

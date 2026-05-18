@@ -266,3 +266,28 @@ body.nav-open .events-trigger-btn {
     padding: 0;
   }
 }
+
+/* Sidebar Event Registration Button */
+.sidebar-event-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  background: white;
+  color: black;
+  padding: 0.6rem 1.2rem;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.sidebar-event-btn:hover {
+  background: transparent;
+  color: white;
+}

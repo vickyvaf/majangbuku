@@ -70,6 +70,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             alt: (eventMedia?.alt as string) || doc.title,
           }
         : undefined,
+      buttonLink: doc.buttonLink || undefined,
     }
   })
 
