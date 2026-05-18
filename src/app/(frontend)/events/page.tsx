@@ -20,7 +20,23 @@ export default async function EventsPage() {
 
   const { docs: events } = await payload.find({
     collection: 'events',
-    sort: '-date',
+    limit: 100000
+  })
+
+  const now = new Date()
+  const sortedEvents = [...events].sort((a: Event, b: Event) => {
+    const dateA = new Date(a.date).getTime()
+    const dateB = new Date(b.date).getTime()
+
+    const isPastA = dateA < now.getTime()
+    const isPastB = dateB < now.getTime()
+
+    // Keep active/upcoming events at the top
+    if (isPastA && !isPastB) return 1
+    if (!isPastA && isPastB) return -1
+
+    // Chronologically sort both active and past lists ascending (earlier dates first)
+    return dateA - dateB
   })
 
   return (
@@ -45,7 +61,7 @@ export default async function EventsPage() {
         />
 
         <div>
-          {events.length === 0 ? (
+          {sortedEvents.length === 0 ? (
             <div className="empty-state">
               <p>Belum ada kegiatan terbaru yang diunggah. Cek kembali nanti!</p>
             </div>
@@ -55,17 +71,19 @@ export default async function EventsPage() {
                 <div className="col-event">KEGIATAN</div>
               </div>
               <div className="events-table-body">
-                {events.map((event: Event, index: number) => {
+                {sortedEvents?.map((event: Event, index: number) => {
                   const eventDate = new Date(event.date)
+                  const isPast = eventDate < new Date()
                   const formattedDate = eventDate.toLocaleDateString('id-ID', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
                   })
+                  const hasImage = !!(event.imageUrl || (event.image && typeof event.image !== 'number'))
 
                   return (
                     <RevealRow key={event.id} className="event-table-row" delay={Math.min(index * 50, 500)}>
-                      <div className="col-event">
+                      <div className={`col-event ${hasImage ? 'has-image' : 'no-image'}`}>
                         {(event.imageUrl || (event.image && typeof event.image !== 'number')) && (
                           <div className="event-row-thumb-wrapper">
                             <img
@@ -109,9 +127,19 @@ export default async function EventsPage() {
                           <p className="event-row-subtitle">
                             {event.description
                               ? ((event.description as any)?.root?.children?.[0]?.children?.[0]
-                                  ?.text as string) || ''
+                                ?.text as string) || ''
                               : ''}
                           </p>
+                          {event.buttonLink && !isPast && (
+                            <a
+                              href={event.buttonLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="event-row-btn"
+                            >
+                              Daftar Sekarang
+                            </a>
+                          )}
                         </div>
                       </div>
                     </RevealRow>

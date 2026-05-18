@@ -215,6 +215,7 @@ export interface Event {
    */
   imageUrl?: string | null;
   status?: ('upcoming' | 'registration_open' | 'completed' | 'cancelled') | null;
+  buttonLink?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -493,6 +494,7 @@ export interface EventsSelect<T extends boolean = true> {
   image?: T;
   imageUrl?: T;
   status?: T;
+  buttonLink?: T;
   updatedAt?: T;
   createdAt?: T;
 }

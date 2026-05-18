@@ -59,5 +59,11 @@ export const Events: CollectionConfig = {
       ],
       defaultValue: 'upcoming',
     },
+    {
+      name: 'buttonLink',
+      label: 'Button Link',
+      type: 'text',
+    },
   ],
 }
+

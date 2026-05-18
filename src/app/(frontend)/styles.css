@@ -386,6 +386,7 @@ body.nav-open .page-logo-img {
 
 /* Row specifically */
 .event-table-row {
+  position: relative;
   display: flex;
   padding: 1.5rem 0;
   border-bottom: 1px solid #e0ddd8;
@@ -870,4 +871,93 @@ body.nav-open .page-logo-img {
   opacity: 1;
   transform: translateY(0) scaleY(1);
   filter: grayscale(0);
+}
+
+/* Event Row Button Styles */
+.event-row-btn {
+  display: block;
+  text-align: center;
+  background: var(--text);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  margin-top: 1rem;
+  /* Push the button to the bottom of the card */
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  width: fit-content;
+  align-self: flex-start;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+
+.event-row-btn:hover {
+  background: #333;
+}
+
+@media (max-width: 768px) {
+  .event-row-btn {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .col-event.has-image {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 1.5rem;
+    row-gap: 0.5rem;
+  }
+
+  .col-event.has-image .event-row-thumb-wrapper {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    margin-bottom: 0;
+  }
+
+  .col-event.has-image .event-row-info {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .col-event.has-image .event-row-btn {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0.5rem;
+    width: fit-content;
+    box-sizing: border-box;
+    justify-self: start;
+    align-self: end;
+  }
+
+  /* Style for when there is NO image */
+  .col-event.no-image {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    row-gap: 0.5rem;
+    width: 100%;
+  }
+
+  .col-event.no-image .event-row-info {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+  }
+
+  .col-event.no-image .event-row-btn {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 0.5rem;
+    width: fit-content;
+    box-sizing: border-box;
+    justify-self: start;
+    align-self: end;
+  }
 }
