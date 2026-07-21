@@ -20,11 +20,36 @@ const bitter = Bitter({
 })
 
 export const metadata = {
+  metadataBase: new URL('https://majangbuku.netlify.app'),
+  title: 'Majang Buku | Komunitas Baca Lumajang',
   description:
     'Komunitas literasi pertama di Lumajang. Majang Buku - Mari hidupkan literasi bersama.',
-  title: 'Majang Buku | Komunitas Baca Lumajang',
   icons: {
     icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: 'Majang Buku | Komunitas Baca Lumajang',
+    description:
+      'Komunitas literasi pertama di Lumajang. Majang Buku - Mari hidupkan literasi bersama.',
+    url: 'https://majangbuku.netlify.app',
+    siteName: 'Majang Buku',
+    images: [
+      {
+        url: '/logo.png',
+        width: 512,
+        height: 512,
+        alt: 'Majang Buku Logo',
+      },
+    ],
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Majang Buku | Komunitas Baca Lumajang',
+    description:
+      'Komunitas literasi pertama di Lumajang. Majang Buku - Mari hidupkan literasi bersama.',
+    images: ['/logo.png'],
   },
 }
 
@@ -109,8 +134,49 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const logo = getMediaUrl(siteSettings.logo) || '/logo.png'
   const logoSecondary = getMediaUrl(siteSettings.logoSecondary) || undefined
 
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      'name': 'Majang Buku',
+      'url': 'https://majangbuku.netlify.app',
+      'logo': logo.startsWith('http') ? logo : `https://majangbuku.netlify.app${logo}`,
+      'sameAs': socialLinks.map((link) => link.url),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      'name': 'Majang Buku',
+      'url': 'https://majangbuku.netlify.app',
+      'potentialAction': {
+        '@type': 'SearchAction',
+        'target': 'https://majangbuku.netlify.app/?q={search_term_string}',
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'SiteNavigationElement',
+      '@id': '#header-navigation',
+      'name': ['Home', 'Biography', 'Events', 'Library', 'FAQ'],
+      'url': [
+        'https://majangbuku.netlify.app/',
+        'https://majangbuku.netlify.app/biography',
+        'https://majangbuku.netlify.app/events',
+        'https://majangbuku.netlify.app/library',
+        'https://majangbuku.netlify.app/faq',
+      ],
+    },
+  ]
+
   return (
     <html lang="id" className={bitter.variable}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>
         <NextTopLoader
           color="#f78750"
