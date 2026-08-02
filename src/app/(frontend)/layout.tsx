@@ -9,9 +9,10 @@ import React from 'react'
 import NextTopLoader from 'nextjs-toploader'
 import './styles.css'
 
+import keywordsData from '@/keywords.json'
+
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
-
 
 const bitter = Bitter({
   subsets: ['latin'],
@@ -21,9 +22,38 @@ const bitter = Bitter({
 
 export const metadata = {
   metadataBase: new URL('https://majangbuku.netlify.app'),
-  title: 'Majang Buku | Komunitas Baca Lumajang',
+  title: {
+    default: 'Majang Buku | Komunitas Baca & Perpustakaan Lumajang',
+    template: '%s | Majang Buku Lumajang',
+  },
   description:
-    'Komunitas literasi pertama di Lumajang. Majang Buku - Mari hidupkan literasi bersama.',
+    'Majang Buku adalah komunitas literasi, penyedia katalog buku, perpustakaan, dan wadah kegiatan membaca pertama di Lumajang, Jawa Timur. Mari tingkatkan budaya membaca bersama kami.',
+  keywords: [
+    'majang buku',
+    'majangbuku',
+    'buku lumajang',
+    'komunitas buku lumajang',
+    'komunitas literasi lumajang',
+    'perpustakaan lumajang',
+    'baca buku lumajang',
+    'pinjam buku lumajang',
+    'katalog buku lumajang',
+    'klub buku lumajang',
+    'taman bacaan lumajang',
+    'tbm lumajang',
+    'lapak baca lumajang',
+    'ruang baca lumajang',
+    'kegiatan membaca lumajang',
+    'event literasi lumajang',
+    'buku gratis lumajang',
+    'donasi buku lumajang',
+    'relawan literasi lumajang',
+    'komunitas pemuda lumajang',
+  ],
+  authors: [{ name: 'Majang Buku Lumajang' }],
+  creator: 'Majang Buku',
+  publisher: 'Majang Buku',
+  category: 'Education & Community',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -39,17 +69,17 @@ export const metadata = {
     ],
   },
   openGraph: {
-    title: 'Majang Buku | Komunitas Baca Lumajang',
+    title: 'Majang Buku | Komunitas Baca & Perpustakaan Lumajang',
     description:
-      'Komunitas literasi pertama di Lumajang. Majang Buku - Mari hidupkan literasi bersama.',
+      'Komunitas literasi & kegiatan baca buku pertama di Lumajang. Cari katalog buku, event literasi, dan ruang baca bersama Majang Buku.',
     url: 'https://majangbuku.netlify.app',
-    siteName: 'Majang Buku',
+    siteName: 'Majang Buku Lumajang',
     images: [
       {
         url: '/logo.png',
         width: 512,
         height: 512,
-        alt: 'Majang Buku Logo',
+        alt: 'Majang Buku Lumajang Logo',
       },
     ],
     locale: 'id_ID',
@@ -57,9 +87,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Majang Buku | Komunitas Baca Lumajang',
+    title: 'Majang Buku | Komunitas Baca & Perpustakaan Lumajang',
     description:
-      'Komunitas literasi pertama di Lumajang. Majang Buku - Mari hidupkan literasi bersama.',
+      'Komunitas literasi & kegiatan baca buku pertama di Lumajang. Cari katalog buku, event literasi, dan ruang baca bersama Majang Buku.',
     images: ['/logo.png'],
   },
 }
@@ -148,10 +178,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const jsonLd = [
     {
       '@context': 'https://schema.org',
-      '@type': 'Organization',
+      '@type': ['EducationalOrganization', 'Library'],
+      '@id': 'https://majangbuku.netlify.app/#organization',
       'name': 'Majang Buku',
+      'alternateName': ['MajangBuku', 'Komunitas Baca Lumajang', 'Perpustakaan Majang Buku'],
       'url': 'https://majangbuku.netlify.app',
       'logo': logo.startsWith('http') ? logo : `https://majangbuku.netlify.app${logo}`,
+      'description':
+        'Komunitas literasi, perpustakaan publik, dan ruang baca bersama pertama di Kabupaten Lumajang, Jawa Timur.',
+      'address': {
+        '@type': 'PostalAddress',
+        'addressLocality': 'Lumajang',
+        'addressRegion': 'Jawa Timur',
+        'addressCountry': 'ID',
+      },
+      'areaServed': {
+        '@type': 'AdministrativeArea',
+        'name': 'Kabupaten Lumajang',
+      },
+      'knowsAbout': keywordsData,
       'sameAs': socialLinks.map((link) => link.url),
     },
     {
