@@ -167,15 +167,32 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     },
     {
       '@context': 'https://schema.org',
-      '@type': 'SiteNavigationElement',
-      '@id': '#header-navigation',
-      'name': ['Home', 'Biography', 'Events', 'Library', 'FAQ'],
-      'url': [
-        'https://majangbuku.netlify.app/',
-        'https://majangbuku.netlify.app/biography',
-        'https://majangbuku.netlify.app/events',
-        'https://majangbuku.netlify.app/library',
-        'https://majangbuku.netlify.app/faq',
+      '@type': 'ItemList',
+      'itemListElement': [
+        {
+          '@type': 'SiteNavigationElement',
+          'position': 1,
+          'name': 'Biography',
+          'url': 'https://majangbuku.netlify.app/biography',
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          'position': 2,
+          'name': 'Events',
+          'url': 'https://majangbuku.netlify.app/events',
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          'position': 3,
+          'name': 'Library',
+          'url': 'https://majangbuku.netlify.app/library',
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          'position': 4,
+          'name': 'FAQ',
+          'url': 'https://majangbuku.netlify.app/faq',
+        },
       ],
     },
   ]
