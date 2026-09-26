@@ -22,6 +22,9 @@ const bitter = Bitter({
 
 export const metadata = {
   metadataBase: new URL('https://majangbuku.id'),
+  verification: {
+    google: '3uDV5boNoiE3oh1juIxUElMStdpPyz5W97KeMPODIt8',
+  },
   title: {
     default: 'Majang Buku | Komunitas Baca & Perpustakaan Lumajang',
     template: '%s | Majang Buku Lumajang',
