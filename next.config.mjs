@@ -7,11 +7,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'sjltryvtdubwdkkczftn.supabase.co',
+        hostname: process.env.SUPABASE_STORAGE_HOSTNAME,
       },
       {
         protocol: 'https',
-        hostname: 'sjltryvtdubwdkkczftn.storage.supabase.co',
+        hostname: process.env.SUPABASE_S3_HOSTNAME,
       },
       {
         protocol: 'https',

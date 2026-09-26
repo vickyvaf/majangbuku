@@ -82,7 +82,7 @@ export default buildConfig({
       collections: {
         media: {
           generateFileURL: ({ filename }) => {
-            return `https://sjltryvtdubwdkkczftn.supabase.co/storage/v1/object/public/media/${filename}`
+            return `https://${process.env.SUPABASE_STORAGE_HOSTNAME}/storage/v1/object/public/media/${filename}`
           },
         },
       },
