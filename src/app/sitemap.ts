@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://majangbuku.netlify.app'
+  const baseUrl = 'https://majangbuku.id'
   const staticRoutes = ['', '/biography', '/events', '/library', '/faq']
 
   const sitemapEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({

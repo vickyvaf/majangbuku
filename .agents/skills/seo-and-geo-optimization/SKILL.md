@@ -30,7 +30,7 @@ export const metadata = {
   openGraph: {
     title: 'Majang Buku | Komunitas Baca Lumajang',
     description: 'Komunitas literasi pertama di Lumajang. Majang Buku - Mari hidupkan literasi bersama.',
-    url: 'https://majangbuku.netlify.app',
+    url: 'https://majangbuku.id',
     siteName: 'Majang Buku',
     images: [
       {
@@ -60,8 +60,8 @@ For the main landing page, include a `WebSite` and `Organization` schema:
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Majang Buku",
-  "url": "https://majangbuku.netlify.app",
-  "logo": "https://majangbuku.netlify.app/logo.png",
+  "url": "https://majangbuku.id",
+  "logo": "https://majangbuku.id/logo.png",
   "sameAs": [
     "https://www.instagram.com/majangbuku"
   ]
@@ -84,10 +84,10 @@ Sitelinks (seperti tampilan menu navigasi tambahan di hasil pencarian Google) di
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Majang Buku",
-    "url": "https://majangbuku.netlify.app",
+    "url": "https://majangbuku.id",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://majangbuku.netlify.app/?q={search_term_string}",
+      "target": "https://majangbuku.id/?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   },
@@ -103,11 +103,11 @@ Sitelinks (seperti tampilan menu navigasi tambahan di hasil pencarian Google) di
       "FAQ"
     ],
     "url": [
-      "https://majangbuku.netlify.app/",
-      "https://majangbuku.netlify.app/biography",
-      "https://majangbuku.netlify.app/events",
-      "https://majangbuku.netlify.app/library",
-      "https://majangbuku.netlify.app/faq"
+      "https://majangbuku.id/",
+      "https://majangbuku.id/biography",
+      "https://majangbuku.id/events",
+      "https://majangbuku.id/library",
+      "https://majangbuku.id/faq"
     ]
   }
 ]

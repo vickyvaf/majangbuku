@@ -20,6 +20,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: 'https://majangbuku.netlify.app/sitemap.xml',
+    sitemap: 'https://majangbuku.id/sitemap.xml',
   }
 }

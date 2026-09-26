@@ -21,7 +21,7 @@ const bitter = Bitter({
 })
 
 export const metadata = {
-  metadataBase: new URL('https://majangbuku.netlify.app'),
+  metadataBase: new URL('https://majangbuku.id'),
   title: {
     default: 'Majang Buku | Komunitas Baca & Perpustakaan Lumajang',
     template: '%s | Majang Buku Lumajang',
@@ -72,7 +72,7 @@ export const metadata = {
     title: 'Majang Buku | Komunitas Baca & Perpustakaan Lumajang',
     description:
       'Komunitas literasi & kegiatan baca buku pertama di Lumajang. Cari katalog buku, event literasi, dan ruang baca bersama Majang Buku.',
-    url: 'https://majangbuku.netlify.app',
+    url: 'https://majangbuku.id',
     siteName: 'Majang Buku Lumajang',
     images: [
       {
@@ -179,11 +179,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     {
       '@context': 'https://schema.org',
       '@type': ['EducationalOrganization', 'Library'],
-      '@id': 'https://majangbuku.netlify.app/#organization',
+      '@id': 'https://majangbuku.id/#organization',
       'name': 'Majang Buku',
       'alternateName': ['MajangBuku', 'Komunitas Baca Lumajang', 'Perpustakaan Majang Buku'],
-      'url': 'https://majangbuku.netlify.app',
-      'logo': logo.startsWith('http') ? logo : `https://majangbuku.netlify.app${logo}`,
+      'url': 'https://majangbuku.id',
+      'logo': logo.startsWith('http') ? logo : `https://majangbuku.id${logo}`,
       'description':
         'Komunitas literasi, perpustakaan publik, dan ruang baca bersama pertama di Kabupaten Lumajang, Jawa Timur.',
       'address': {
@@ -203,10 +203,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       'name': 'Majang Buku',
-      'url': 'https://majangbuku.netlify.app',
+      'url': 'https://majangbuku.id',
       'potentialAction': {
         '@type': 'SearchAction',
-        'target': 'https://majangbuku.netlify.app/?q={search_term_string}',
+        'target': 'https://majangbuku.id/?q={search_term_string}',
         'query-input': 'required name=search_term_string',
       },
     },
@@ -218,25 +218,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           '@type': 'SiteNavigationElement',
           'position': 1,
           'name': 'Biography',
-          'url': 'https://majangbuku.netlify.app/biography',
+          'url': 'https://majangbuku.id/biography',
         },
         {
           '@type': 'SiteNavigationElement',
           'position': 2,
           'name': 'Events',
-          'url': 'https://majangbuku.netlify.app/events',
+          'url': 'https://majangbuku.id/events',
         },
         {
           '@type': 'SiteNavigationElement',
           'position': 3,
           'name': 'Library',
-          'url': 'https://majangbuku.netlify.app/library',
+          'url': 'https://majangbuku.id/library',
         },
         {
           '@type': 'SiteNavigationElement',
           'position': 4,
           'name': 'FAQ',
-          'url': 'https://majangbuku.netlify.app/faq',
+          'url': 'https://majangbuku.id/faq',
         },
       ],
     },
