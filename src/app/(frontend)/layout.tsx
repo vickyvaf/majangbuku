@@ -5,9 +5,11 @@ import { BottomBar } from '@/components/BottomBar/BottomBar'
 import config from '@payload-config'
 import { Bitter } from 'next/font/google'
 import { getPayload } from 'payload'
+import type { Metadata } from 'next'
 import React from 'react'
 import NextTopLoader from 'nextjs-toploader'
 import './styles.css'
+
 
 import keywordsData from '@/keywords.json'
 
@@ -20,8 +22,9 @@ const bitter = Bitter({
   variable: '--font-main',
 })
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL('https://majangbuku.id'),
+  applicationName: 'Majang Buku',
   verification: {
     google: '3uDV5boNoiE3oh1juIxUElMStdpPyz5W97KeMPODIt8',
   },
@@ -76,7 +79,7 @@ export const metadata = {
     description:
       'Komunitas literasi & kegiatan baca buku pertama di Lumajang. Cari katalog buku, event literasi, dan ruang baca bersama Majang Buku.',
     url: 'https://majangbuku.id',
-    siteName: 'Majang Buku Lumajang',
+    siteName: 'Majang Buku',
     images: [
       {
         url: '/logo.png',
@@ -205,7 +208,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
+      '@id': 'https://majangbuku.id/#website',
       'name': 'Majang Buku',
+      'alternateName': 'Majang Buku',
       'url': 'https://majangbuku.id',
       'potentialAction': {
         '@type': 'SearchAction',
