@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://majangbuku.netlify.app/*"
+  to = "https://majangbuku.id/:splat"
+  status = 301
+  force = true
